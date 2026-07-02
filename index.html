@@ -1,2023 +1,817 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Mustafa Hamdy — AI Automation Engineer</title>
-<meta name="description" content="Portfolio of Mustafa Hamdy — AI Automation Engineer specializing in n8n, AI agents, and end-to-end workflow automation." />
+<meta name="description" content="Mustafa Hamdy — AI Automation Engineer building production AI systems: 40+ n8n workflows integrating LLMs (AWS Bedrock, GPT-4o), OCR, and 20+ APIs. Architecture, metrics, and case studies." />
+<meta name="author" content="Mustafa Hamdy" />
+<meta name="theme-color" content="#0a0908" />
+<!-- Open Graph -->
+<meta property="og:title" content="Mustafa Hamdy — AI Automation Engineer" />
+<meta property="og:description" content="Production AI automation systems: 40+ n8n workflows, LLMs, OCR, and 20+ API integrations — built with retries, validation, and monitoring." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://mostafa3001hamdy.github.io/Mustafa-Portfolio/" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500;600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
 <style>
-  :root {
-    --bg: #0a0908;
-    --bg-soft: #14130f;
-    --bg-elev: #1c1a16;
-    --border: #2a2722;
-    --border-strong: #3a362f;
-    --cream: #f5f0e8;
-    --cream-soft: #e8e3da;
-    --muted: #968f83;
-    --muted-soft: #6b665d;
-    --coral: #f25c2e;
-    --coral-glow: rgba(242, 92, 46, 0.15);
-    --lime: #c8fa54;
-    --lime-glow: rgba(200, 250, 84, 0.12);
-    --serif: 'Fraunces', Georgia, serif;
-    --sans: 'Manrope', -apple-system, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
+  :root{
+    --bg:#0a0908; --bg-soft:#14130f; --bg-elev:#1c1a16;
+    --border:#2a2722; --border-strong:#3a362f;
+    --cream:#f5f0e8; --cream-soft:#e8e3da; --muted:#968f83; --muted-soft:#6b665d;
+    --coral:#f25c2e; --coral-soft:#f9a68a; --lime:#c8fa54; --sky:#7fb8ff;
+    --serif:'Fraunces',Georgia,serif; --sans:'Manrope',-apple-system,sans-serif; --mono:'JetBrains Mono',monospace;
+    --maxw:1240px; --r:10px;
+    --sp:clamp(80px,10vw,140px);
   }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{background:var(--bg);color:var(--cream);font-family:var(--sans);font-weight:400;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+  body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(circle at 15% -5%,rgba(242,92,46,.10),transparent 45%),radial-gradient(circle at 90% 100%,rgba(200,250,84,.05),transparent 45%)}
+  body::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;background-image:radial-gradient(rgba(255,255,255,.022) 1px,transparent 1px);background-size:30px 30px}
+  h1,h2,h3,h4{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:1.06}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .mono{font-family:var(--mono)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:1}
+  @media(max-width:640px){.wrap{padding:0 20px}}
+  ::selection{background:var(--coral);color:var(--bg)}
+  :focus-visible{outline:2px solid var(--lime);outline-offset:3px;border-radius:4px}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--cream);
-    font-family: var(--sans);
-    font-weight: 400;
-    line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  /* skip link */
+  .skip{position:absolute;left:-999px;top:8px;z-index:200;background:var(--lime);color:#111;padding:10px 16px;border-radius:6px;font-family:var(--mono);font-size:13px}
+  .skip:focus{left:16px}
 
-  /* Background texture: subtle dots + warm gradient */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(circle at 20% 0%, rgba(242, 92, 46, 0.08), transparent 50%),
-      radial-gradient(circle at 80% 100%, rgba(200, 250, 84, 0.04), transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-  }
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 28px 28px;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.6;
-  }
+  /* NAV */
+  nav{position:fixed;inset:0 0 auto 0;z-index:100;padding:16px 0;background:rgba(10,9,8,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:var(--serif);font-size:21px;font-weight:500;letter-spacing:-.02em}
+  .logo .dot{color:var(--coral)}
+  .nav-links{display:flex;gap:26px;list-style:none;align-items:center}
+  .nav-links a{color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;transition:color .2s}
+  .nav-links a:hover{color:var(--cream)}
+  .nav-cta{border:1px solid var(--border-strong);border-radius:100px;padding:8px 16px!important;color:var(--cream)!important}
+  .nav-cta:hover{background:var(--coral);border-color:var(--coral);color:#111!important}
+  .nav-toggle{display:none;background:none;border:1px solid var(--border-strong);color:var(--cream);border-radius:8px;padding:8px 10px;font-family:var(--mono);font-size:12px;cursor:pointer}
+  @media(max-width:860px){.nav-links{display:none}.nav-links.open{display:flex;position:absolute;top:60px;right:20px;left:20px;flex-direction:column;gap:14px;background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;padding:20px}.nav-toggle{display:block}}
 
-  /* Typography */
-  h1, h2, h3, h4 {
-    font-family: var(--serif);
-    font-weight: 400;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
-  }
-  .mono { font-family: var(--mono); }
-  .italic { font-style: italic; }
+  /* HERO */
+  .hero{padding:170px 0 70px;position:relative}
+  .badge{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;border:1px solid var(--border);border-radius:100px;padding:8px 14px;margin-bottom:30px}
+  .badge .pulse{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(200,250,84,.5);animation:pulse 2.4s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(200,250,84,0)}100%{box-shadow:0 0 0 0 rgba(200,250,84,0)}}
+  @media(prefers-reduced-motion:reduce){.badge .pulse{animation:none}}
+  .hero h1{font-size:clamp(52px,9vw,118px);font-weight:300;line-height:.92;letter-spacing:-.04em;margin-bottom:22px}
+  .hero h1 .it{font-style:italic}
+  .hero h1 .dot{color:var(--coral)}
+  .hero-lead{font-size:clamp(19px,2.4vw,26px);line-height:1.4;color:var(--cream-soft);font-weight:300;max-width:760px;margin-bottom:14px}
+  .hero-lead em{font-family:var(--serif);font-style:italic;color:var(--coral);font-weight:400}
+  .hero-sub{font-size:16px;color:var(--muted);max-width:680px;margin-bottom:34px}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
+  .btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:13px;letter-spacing:.02em;text-decoration:none;padding:13px 20px;border-radius:100px;border:1px solid var(--border-strong);color:var(--cream);transition:all .22s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:var(--coral);border-color:var(--coral);color:#151007;font-weight:500}
+  .btn-primary:hover{box-shadow:0 12px 30px -10px rgba(242,92,46,.6)}
+  .btn-ghost:hover{border-color:var(--cream);background:rgba(255,255,255,.04)}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border:1px solid var(--border);border-radius:100px;padding:6px 12px}
 
-  /* Layout container */
-  .wrap {
-    max-width: 1320px;
-    margin: 0 auto;
-    padding: 0 32px;
-    position: relative;
-    z-index: 1;
-  }
-  @media (max-width: 640px) {
-    .wrap { padding: 0 20px; }
-  }
+  /* METRICS BAND */
+  .metrics{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:8px 0}
+  .metrics .grid{display:grid;grid-template-columns:repeat(6,1fr)}
+  .metric{padding:34px 20px;border-right:1px solid var(--border);text-align:left}
+  .metric:last-child{border-right:none}
+  .metric .n{font-family:var(--serif);font-size:clamp(34px,4vw,52px);font-weight:300;line-height:1;letter-spacing:-.02em}
+  .metric .n em{font-style:italic;color:var(--coral)}
+  .metric:nth-child(even) .n em{color:var(--lime)}
+  .metric .l{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:12px;line-height:1.5}
+  @media(max-width:900px){.metrics .grid{grid-template-columns:repeat(3,1fr)}.metric:nth-child(3){border-right:none}}
+  @media(max-width:520px){.metrics .grid{grid-template-columns:repeat(2,1fr)}.metric{padding:24px 14px}.metric:nth-child(odd){border-right:1px solid var(--border)}.metric:nth-child(even){border-right:none}}
 
-  /* Nav */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 18px 0;
-    background: rgba(10, 9, 8, 0.78);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--border);
-  }
-  nav .wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .logo {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-  }
-  .logo .dot {
-    color: var(--coral);
-  }
-  .nav-links {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    transition: color 0.2s ease;
-    position: relative;
-  }
-  .nav-links a:hover { color: var(--cream); }
-  .nav-links a::before {
-    content: counter(navcount, decimal-leading-zero) '. ';
-    color: var(--muted-soft);
-  }
-  .nav-links { counter-reset: navcount; }
-  .nav-links li { counter-increment: navcount; }
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-  }
+  /* SECTION scaffold */
+  section{padding:var(--sp) 0;position:relative}
+  .sec-head{display:grid;grid-template-columns:220px 1fr;gap:40px;margin-bottom:64px;align-items:end}
+  @media(max-width:820px){.sec-head{grid-template-columns:1fr;gap:14px;margin-bottom:44px}}
+  .sec-num{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;border-top:1px solid var(--border);padding-top:12px;width:fit-content}
+  .sec-num .dot{color:var(--coral)}
+  .sec-title{font-size:clamp(36px,5.4vw,68px);font-weight:300;letter-spacing:-.035em;line-height:1}
+  .sec-title em{font-style:italic;color:var(--muted)}
+  .sec-title .ac{color:var(--coral)}
+  .sec-intro{font-size:18px;color:var(--cream-soft);font-weight:300;max-width:640px;margin-top:18px}
 
-  /* Hero */
-  .hero {
-    padding: 180px 0 120px;
-    position: relative;
-  }
-  .hero-meta {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 40px;
-    animation: fadeUp 0.8s ease both;
-  }
-  .hero-meta .pulse {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--lime);
-    box-shadow: 0 0 0 0 var(--lime-glow);
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(200, 250, 84, 0.5); }
-    70% { box-shadow: 0 0 0 10px rgba(200, 250, 84, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(200, 250, 84, 0); }
-  }
+  /* PILLARS (what I do) */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+  @media(max-width:820px){.pillars{grid-template-columns:1fr}}
+  .pillar{background:var(--bg);padding:38px 30px}
+  .pillar .k{font-family:var(--mono);font-size:11px;color:var(--coral);text-transform:uppercase;letter-spacing:.14em;margin-bottom:16px}
+  .pillar h3{font-size:26px;font-weight:400;margin-bottom:12px}
+  .pillar h3 em{font-style:italic;color:var(--muted)}
+  .pillar p{font-size:15.5px;color:var(--cream-soft);font-weight:300}
 
-  .hero h1 {
-    font-size: clamp(56px, 11vw, 168px);
-    font-weight: 300;
-    line-height: 0.92;
-    letter-spacing: -0.045em;
-    margin-bottom: 8px;
-  }
-  .hero h1 .last {
-    font-style: italic;
-    font-weight: 300;
-    color: var(--cream);
-  }
-  .hero h1 .last::after {
-    content: '.';
-    color: var(--coral);
-  }
-  .hero h1 span.line {
-    display: block;
-    animation: fadeUp 0.9s ease both;
-  }
-  .hero h1 span.line:nth-child(1) { animation-delay: 0.1s; }
-  .hero h1 span.line:nth-child(2) { animation-delay: 0.25s; }
+  /* CASE STUDIES */
+  .cs{border-top:1px solid var(--border);padding:72px 0}
+  .cs-head{display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:start;margin-bottom:36px}
+  .cs-idx{font-family:var(--mono);font-size:13px;color:var(--muted-soft);padding-top:8px}
+  .cs-idx .ac{color:var(--coral)}
+  .cs-cat{font-family:var(--mono);font-size:11px;color:var(--lime);text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+  .cs-title{font-size:clamp(28px,3.6vw,46px);font-weight:300;letter-spacing:-.03em;line-height:1.02;margin-bottom:14px}
+  .cs-title em{font-style:italic;color:var(--muted)}
+  .cs-lead{font-size:18px;color:var(--cream-soft);font-weight:300;max-width:720px}
+  .cs-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+  .cs-tags .tag{font-size:10px}
 
-  .hero-role {
-    margin-top: 56px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: end;
-    animation: fadeUp 1s 0.5s ease both;
-  }
-  @media (max-width: 768px) {
-    .hero-role { grid-template-columns: 1fr; gap: 32px; }
-  }
-  .hero-role .tag {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .hero-role .tag::before {
-    content: '';
-    width: 32px;
-    height: 1px;
-    background: var(--coral);
-    display: block;
-  }
-  .hero-role p {
-    font-size: 22px;
-    line-height: 1.45;
-    color: var(--cream-soft);
-    font-weight: 300;
-    max-width: 520px;
-  }
-  .hero-role p em {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--coral);
-  }
+  .cs-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:32px;margin-bottom:28px}
+  @media(max-width:900px){.cs-grid{grid-template-columns:1fr;gap:20px}}
+  .cs-block{margin-bottom:26px}
+  .cs-block:last-child{margin-bottom:0}
+  .cs-block h4,.cs-diagram h4,.diag-wrap h4{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px;font-weight:400}
+  .cs-block h4::before{content:'▸ ';color:var(--coral)}
+  .cs-block p{font-size:16px;color:var(--cream-soft);font-weight:300;line-height:1.6}
+  .cs-block ul{list-style:none;margin-top:6px}
+  .cs-block li{font-size:15.5px;color:var(--cream-soft);font-weight:300;padding-left:20px;position:relative;margin-bottom:9px;line-height:1.5}
+  .cs-block li::before{content:'→';position:absolute;left:0;color:var(--coral);font-family:var(--mono)}
+  .cs-block strong{color:var(--lime);font-weight:600}
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* spec card */
+  .spec{border:1px solid var(--border);border-radius:var(--r);background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);overflow:hidden;align-self:start}
+  .spec .row{display:grid;grid-template-columns:118px 1fr;gap:14px;padding:15px 18px;border-bottom:1px solid var(--border);font-size:13.5px}
+  .spec .row:last-child{border-bottom:none}
+  .spec .rk{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
+  .spec .rv{color:var(--cream-soft);font-weight:300;line-height:1.5}
+  .spec .rv b{color:var(--cream);font-weight:600}
 
-  /* Marquee */
-  .marquee {
-    margin: 120px 0;
-    padding: 28px 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-    position: relative;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 64px;
-    animation: scroll 38s linear infinite;
-    white-space: nowrap;
-    width: max-content;
-  }
-  .marquee-item {
-    font-family: var(--serif);
-    font-size: 34px;
-    font-weight: 300;
-    color: var(--cream-soft);
-    display: flex;
-    align-items: center;
-    gap: 64px;
-  }
-  .marquee-item .dot {
-    width: 8px;
-    height: 8px;
-    background: var(--coral);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-  .marquee-item:nth-child(even) {
-    font-style: italic;
-    color: var(--muted);
-  }
-  @keyframes scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
+  /* diagrams */
+  .diag-wrap{border:1px solid var(--border);border-radius:var(--r);padding:26px 24px;margin-bottom:22px;background:radial-gradient(circle at 20% 0%,rgba(242,92,46,.05),transparent 60%)}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:18px;font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .legend span{display:inline-flex;align-items:center;gap:7px}
+  .legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .i-trig{background:var(--lime)} .i-ai{background:var(--coral)} .i-int{background:var(--sky)} .i-store{background:var(--muted)}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+  .node{font-family:var(--mono);font-size:12px;padding:9px 13px;border-radius:8px;border:1px solid var(--border-strong);background:var(--bg-elev);color:var(--cream-soft);white-space:nowrap}
+  .node.trig{border-color:var(--lime);color:var(--lime)}
+  .node.ai{border-color:var(--coral);color:var(--coral-soft)}
+  .node.int{border-color:var(--sky);color:var(--sky)}
+  .node.store{border-color:var(--muted);color:var(--muted)}
+  .arrow{color:var(--muted-soft);font-family:var(--mono);font-size:14px}
+  /* architecture tiers */
+  .arch{display:flex;flex-direction:column;gap:12px}
+  .tier{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:center;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg-soft)}
+  .tier .tl{font-family:var(--mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .tier .tn{display:flex;flex-wrap:wrap;gap:8px}
+  @media(max-width:560px){.tier{grid-template-columns:1fr;gap:9px}}
 
-  /* Sections */
-  section {
-    padding: 120px 0;
-    position: relative;
-  }
-  @media (max-width: 768px) {
-    section { padding: 64px 0; }
-  }
-  @media (max-width: 480px) {
-    section { padding: 48px 0; }
-  }
-  .section-head {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 40px;
-    margin-bottom: 80px;
-    align-items: start;
-  }
-  @media (max-width: 768px) {
-    .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 48px; }
-  }
-  .section-num {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    padding-top: 12px;
-    border-top: 1px solid var(--border);
-    display: inline-block;
-    width: fit-content;
-  }
-  .section-num .dot { color: var(--coral); }
-  .section-title {
-    font-size: clamp(40px, 6vw, 76px);
-    font-weight: 300;
-    letter-spacing: -0.035em;
-    line-height: 1;
-  }
-  .section-title em {
-    font-style: italic;
-    color: var(--muted);
-  }
-  .section-title .accent { color: var(--coral); }
+  /* impact tiles */
+  .impact{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:24px 0}
+  .itile{border:1px solid var(--border);border-radius:var(--r);padding:24px 20px;background:linear-gradient(160deg,rgba(242,92,46,.05),transparent 70%)}
+  .itile .n{font-family:var(--serif);font-size:38px;font-weight:300;line-height:1;color:var(--coral)}
+  .itile.alt .n{color:var(--lime)}
+  .itile .n em{font-style:italic}
+  .itile .l{font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:10px;line-height:1.4}
 
-  /* About */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 200px 1fr 280px;
-    gap: 64px;
-    align-items: start;
-  }
-  @media (max-width: 968px) {
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-  }
-  .about-text p {
-    font-size: 21px;
-    line-height: 1.55;
-    color: var(--cream-soft);
-    font-weight: 300;
-    margin-bottom: 24px;
-  }
-  .about-text p:last-child { margin-bottom: 0; }
-  .about-text em {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--cream);
-    font-weight: 400;
-  }
-  .about-text strong {
-    color: var(--coral);
-    font-weight: 500;
-  }
+  /* screenshots */
+  .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:8px}
+  .shot{position:relative;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:#0d0d0d}
+  .shot img{width:100%;height:auto;display:block}
+  .shot .cap{position:absolute;top:12px;left:12px;font-family:var(--mono);font-size:10px;color:var(--cream);background:rgba(0,0,0,.7);backdrop-filter:blur(6px);padding:5px 9px;border-radius:5px;border:1px solid rgba(255,255,255,.1);text-transform:uppercase;letter-spacing:.1em}
 
-  .stat-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-  .stat {
-    border-top: 1px solid var(--border);
-    padding-top: 18px;
-  }
-  .stat .num {
-    font-family: var(--serif);
-    font-size: 56px;
-    font-weight: 300;
-    line-height: 1;
-    color: var(--cream);
-    letter-spacing: -0.02em;
-  }
-  .stat .num em {
-    font-style: italic;
-    color: var(--coral);
-  }
-  .stat .lbl {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    margin-top: 8px;
-  }
+  /* GALLERY */
+  .gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:920px){.gal{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.gal{grid-template-columns:1fr}}
+  .card{border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--bg-soft);transition:transform .3s,border-color .3s,box-shadow .3s;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-4px);border-color:var(--border-strong);box-shadow:0 22px 50px -22px rgba(0,0,0,.7)}
+  .card .imgw{aspect-ratio:16/9;overflow:hidden;position:relative;background:radial-gradient(circle at 30% 20%,rgba(242,92,46,.07),transparent 60%),linear-gradient(135deg,#161310,#0e0d0b)}
+  .card .imgw img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .card:hover .imgw img{transform:scale(1.05)}
+  .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px}
+  .ph .pi{font-family:var(--serif);font-style:italic;font-size:20px;color:var(--muted)}
+  .ph .pt{font-family:var(--mono);font-size:9.5px;color:var(--muted-soft);text-transform:uppercase;letter-spacing:.14em}
+  .card .body{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column}
+  .card .cat{font-family:var(--mono);font-size:9.5px;color:var(--coral);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+  .card .cat.ai{color:var(--lime)}
+  .card h4{font-size:19px;font-weight:400;line-height:1.15;margin-bottom:8px;font-family:var(--serif)}
+  .card p{font-size:13.5px;color:var(--muted);font-weight:300;line-height:1.5;margin-bottom:12px;flex:1}
+  .card .mtags{display:flex;flex-wrap:wrap;gap:6px}
+  .card .mtags span{font-family:var(--mono);font-size:9px;color:var(--muted);border:1px solid var(--border);border-radius:100px;padding:4px 8px;text-transform:uppercase;letter-spacing:.06em}
+  .card .metric{font-family:var(--mono);font-size:10px;color:var(--lime);border:none;padding:0;margin-top:10px}
 
-  /* Featured Projects */
-  .case {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-    margin-bottom: 140px;
-    padding-bottom: 80px;
-    border-bottom: 1px solid var(--border);
-  }
-  .case:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-  .case-header {
-    display: grid;
-    grid-template-columns: 200px 1fr 280px;
-    gap: 40px;
-    margin-bottom: 16px;
-  }
-  @media (max-width: 968px) {
-    .case-header { grid-template-columns: 1fr; gap: 16px; }
-  }
-  .case-num {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted-soft);
-    letter-spacing: 0.12em;
-  }
-  .case-num .accent { color: var(--coral); }
-  .case h3 {
-    font-size: clamp(32px, 4.4vw, 56px);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    font-weight: 300;
-  }
-  .case h3 em {
-    font-style: italic;
-    color: var(--muted);
-  }
-  .case-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    align-content: start;
-    padding-top: 16px;
-  }
-  .case-tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    padding: 6px 10px;
-    border: 1px solid var(--border);
-    border-radius: 100px;
-  }
-  .case-body {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 40px;
-    margin-top: 20px;
-  }
-  @media (max-width: 968px) {
-    .case-body { grid-template-columns: 1fr; gap: 24px; }
-  }
-  .case-body .label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    padding-top: 4px;
-  }
-  .case-body .content p {
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--cream-soft);
-    font-weight: 300;
-    margin-bottom: 14px;
-  }
-  .case-body .content p:last-child { margin-bottom: 0; }
-  .case-body .content em {
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--cream);
-  }
-  .case-body .content strong {
-    color: var(--lime);
-    font-weight: 500;
-  }
-  .case-body ul {
-    list-style: none;
-    margin-top: 8px;
-  }
-  .case-body ul li {
-    font-size: 17px;
-    line-height: 1.5;
-    color: var(--cream-soft);
-    font-weight: 300;
-    padding-left: 22px;
-    position: relative;
-    margin-bottom: 10px;
-  }
-  .case-body ul li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    top: 1px;
-    color: var(--coral);
-    font-family: var(--mono);
-  }
+  /* TECH STACK */
+  .stack{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+  @media(max-width:920px){.stack{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.stack{grid-template-columns:1fr}}
+  .cell{background:var(--bg);padding:30px 24px}
+  .cell .k{font-family:var(--mono);font-size:10px;color:var(--muted-soft);text-transform:uppercase;letter-spacing:.12em;margin-bottom:14px}
+  .cell .k::before{content:'/ ';color:var(--coral)}
+  .cell h4{font-size:19px;font-weight:400;margin-bottom:14px}
+  .cell h4 em{font-style:italic;color:var(--muted)}
+  .cell ul{list-style:none}
+  .cell li{font-family:var(--mono);font-size:12.5px;color:var(--cream-soft);padding:5px 0;border-bottom:1px dashed var(--border);font-weight:300}
+  .cell li:last-child{border-bottom:none}
 
-  .case-impact {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    margin-top: 36px;
-    padding: 32px;
-    border: 1px solid var(--border);
-    background: linear-gradient(to bottom right, rgba(242,92,46,0.04), transparent 60%);
-    border-radius: 4px;
-  }
-  .impact-num {
-    font-family: var(--serif);
-    font-size: 48px;
-    font-weight: 300;
-    line-height: 1;
-    color: var(--coral);
-    letter-spacing: -0.02em;
-  }
-  .impact-num.alt { color: var(--lime); }
-  .impact-num em { font-style: italic; }
-  .impact-lbl {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    margin-top: 10px;
-    line-height: 1.4;
-  }
+  /* PROCESS */
+  .proc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:920px){.proc{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.proc{grid-template-columns:1fr}}
+  .step{border:1px solid var(--border);border-radius:var(--r);padding:26px 22px;background:var(--bg-soft)}
+  .step .no{font-family:var(--mono);font-size:12px;color:var(--coral);margin-bottom:14px}
+  .step h4{font-size:19px;font-weight:400;margin-bottom:10px}
+  .step p{font-size:14px;color:var(--cream-soft);font-weight:300}
 
-  /* Workflow showcase image */
-  .workflow-img {
-    margin-top: 48px;
-    position: relative;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    background: #0d0d0d;
-  }
-  .workflow-img img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  .workflow-img::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    box-shadow: inset 0 0 80px rgba(0,0,0,0.5);
-  }
-  .workflow-img .badge {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--cream);
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(6px);
-    padding: 6px 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(255,255,255,0.1);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    z-index: 2;
-  }
-  .workflow-img .stack {
-    margin-top: 12px;
-    display: flex;
-    gap: 14px;
-  }
-  .workflow-img .stack-card {
-    flex: 1;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    position: relative;
-  }
-  .workflow-img .stack-card img { display: block; width: 100%; }
-  .stack-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 16px;
-  }
-  @media (max-width: 640px) {
-    .stack-row { grid-template-columns: 1fr; }
-  }
-  .stack-row .workflow-img { margin-top: 0; }
+  /* EXPERIENCE */
+  .exp .row{display:grid;grid-template-columns:200px 1fr 1.1fr;gap:36px;padding:36px 0;border-top:1px solid var(--border);align-items:start;transition:padding-left .3s}
+  .exp .row:last-child{border-bottom:1px solid var(--border)}
+  .exp .row:hover{padding-left:10px}
+  @media(max-width:900px){.exp .row{grid-template-columns:1fr;gap:12px;padding:28px 0}}
+  .exp .per{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+  .exp .per .now{color:var(--lime);font-weight:500}
+  .exp h4{font-size:26px;font-weight:400;line-height:1.1;margin-bottom:6px}
+  .exp h4 em{font-style:italic}
+  .exp .role{font-family:var(--mono);font-size:12.5px;color:var(--coral);text-transform:uppercase;letter-spacing:.09em}
+  .exp .d{font-size:15px;color:var(--cream-soft);font-weight:300;line-height:1.55}
+  .exp .d strong{color:var(--lime);font-weight:600}
 
-  /* Gallery */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
-  @media (max-width: 968px) {
-    .gallery { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 640px) {
-    .gallery { grid-template-columns: 1fr; }
-  }
-  .card {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    background: var(--bg-soft);
-    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    position: relative;
-    cursor: pointer;
-  }
-  @media (max-width: 768px) {
-    /* Brighter border on mobile so cards have visible structure
-       even while their workflow image is still loading */
-    .card { border-color: var(--border-strong); }
-  }
-  .card:hover {
-    transform: translateY(-4px);
-    border-color: var(--border-strong);
-    box-shadow: 0 24px 60px -20px rgba(0,0,0,0.6);
-  }
-  .card .img-wrap {
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background:
-      radial-gradient(circle at 30% 20%, rgba(242, 92, 46, 0.06), transparent 60%),
-      radial-gradient(circle at 80% 90%, rgba(200, 250, 84, 0.04), transparent 60%),
-      linear-gradient(135deg, #161310 0%, #0e0d0b 100%);
-    position: relative;
-  }
-  .card .img-wrap::before {
-    /* subtle grid texture visible while image is loading */
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 14px 14px;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .card .img-wrap img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .card:hover .img-wrap img { transform: scale(1.04); }
-  /* Placeholder shown when a workflow has no screenshot yet */
-  .card .img-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 22px 24px;
-    background:
-      radial-gradient(circle at 30% 20%, rgba(242, 92, 46, 0.10), transparent 55%),
-      radial-gradient(circle at 80% 90%, rgba(200, 250, 84, 0.06), transparent 55%),
-      linear-gradient(135deg, #161310 0%, #0e0d0b 100%);
-    background-size: cover;
-  }
-  .card .img-placeholder::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 14px 14px;
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  .card .img-placeholder .ph-tag {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    position: relative;
-    z-index: 1;
-  }
-  .card .img-placeholder .ph-icon {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 56px;
-    line-height: 1;
-    color: var(--cream);
-    opacity: 0.55;
-    position: relative;
-    z-index: 1;
-    align-self: flex-end;
-    letter-spacing: -0.04em;
-  }
-  .card .img-placeholder .ph-icon .accent { color: var(--coral); }
-  .card-meta {
-    padding: 22px 22px 24px;
-  }
-  .card-cat {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--coral);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    margin-bottom: 8px;
-  }
-  .card-cat.ai { color: var(--lime); }
-  .card h4 {
-    font-size: 22px;
-    line-height: 1.15;
-    font-weight: 400;
-    letter-spacing: -0.018em;
-    margin-bottom: 10px;
-    color: var(--cream);
-  }
-  .card h4 em { font-style: italic; color: var(--muted); }
-  .card-desc {
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--muted);
-    font-weight: 300;
-  }
-  .card .status {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 2;
-    font-family: var(--mono);
-    font-size: 9px;
-    color: var(--lime);
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(6px);
-    padding: 5px 8px;
-    border-radius: 100px;
-    border: 1px solid rgba(200,250,84,0.2);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .card .status::before {
-    content: '';
-    width: 6px;
-    height: 6px;
-    background: var(--lime);
-    border-radius: 50%;
-  }
+  /* CONTACT */
+  .contact{padding:150px 0 120px}
+  .contact h2{font-size:clamp(48px,9vw,120px);font-weight:300;line-height:.95;letter-spacing:-.04em;margin-bottom:34px}
+  .contact h2 em{font-style:italic;color:var(--coral)}
+  .contact .sub{font-size:19px;color:var(--cream-soft);max-width:620px;font-weight:300;line-height:1.5}
+  .cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:56px;padding-top:44px;border-top:1px solid var(--border)}
+  @media(max-width:820px){.cgrid{grid-template-columns:repeat(2,1fr);gap:24px}}
+  @media(max-width:460px){.cgrid{grid-template-columns:1fr}}
+  .cblock .l{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.14em;margin-bottom:12px}
+  .cblock a,.cblock .v{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--cream);text-decoration:none;letter-spacing:-.01em;line-height:1.2;border-bottom:1px solid transparent;transition:all .22s}
+  .cblock a:hover{color:var(--coral);border-bottom-color:var(--coral)}
+  .cblock a em{font-style:italic}
 
-  /* Tech stack */
-  .stack-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  @media (max-width: 968px) { .stack-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .stack-grid { grid-template-columns: 1fr; } }
-  .stack-cell {
-    background: var(--bg);
-    padding: 36px 28px;
-    transition: background 0.3s ease;
-    position: relative;
-  }
-  .stack-cell:hover { background: var(--bg-soft); }
-  .stack-cell .cat {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--muted-soft);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    margin-bottom: 18px;
-  }
-  .stack-cell .cat::before {
-    content: '/ ';
-    color: var(--coral);
-  }
-  .stack-cell h4 {
-    font-size: 22px;
-    line-height: 1.2;
-    font-weight: 400;
-    margin-bottom: 16px;
-    color: var(--cream);
-  }
-  .stack-cell h4 em { font-style: italic; color: var(--muted); }
-  .stack-cell ul {
-    list-style: none;
-  }
-  .stack-cell li {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--cream-soft);
-    padding: 6px 0;
-    border-bottom: 1px dashed var(--border);
-    font-weight: 300;
-  }
-  .stack-cell li:last-child { border-bottom: none; }
+  footer{border-top:1px solid var(--border);padding:36px 0;margin-top:40px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+  footer .heart{color:var(--coral)}
 
-  /* Experience timeline */
-  .exp-list {
-    display: flex;
-    flex-direction: column;
-  }
-  .exp-row {
-    display: grid;
-    grid-template-columns: 200px 1fr 1fr;
-    gap: 40px;
-    padding: 40px 0;
-    border-top: 1px solid var(--border);
-    align-items: start;
-    transition: padding 0.3s ease;
-  }
-  .exp-row:last-child { border-bottom: 1px solid var(--border); }
-  .exp-row:hover { padding-left: 12px; }
-  @media (max-width: 968px) {
-    .exp-row { grid-template-columns: 1fr; gap: 14px; padding: 32px 0; }
-  }
-  .exp-period {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-  }
-  .exp-period .now {
-    color: var(--lime);
-    font-weight: 500;
-  }
-  .exp-main h4 {
-    font-size: 30px;
-    font-weight: 400;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 6px;
-  }
-  .exp-main h4 em { font-style: italic; }
-  .exp-main .role {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--coral);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-  .exp-desc {
-    font-size: 16px;
-    line-height: 1.55;
-    color: var(--cream-soft);
-    font-weight: 300;
-  }
-  .exp-desc strong { color: var(--lime); font-weight: 500; }
+  /* reveal (JS only; no-JS shows everything) */
+  .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+  .js .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.js .reveal{opacity:1;transform:none;transition:none}}
 
-  /* Contact */
-  .contact {
-    padding: 160px 0 120px;
-    position: relative;
-  }
-  .contact-title {
-    font-size: clamp(56px, 10vw, 140px);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-    margin-bottom: 48px;
-  }
-  .contact-title em {
-    font-style: italic;
-    color: var(--coral);
-  }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    margin-top: 64px;
-    padding-top: 48px;
-    border-top: 1px solid var(--border);
-  }
-  @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; gap: 24px; } }
-  .contact-block .lbl {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    margin-bottom: 14px;
-  }
-  .contact-block a, .contact-block .val {
-    font-family: var(--serif);
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--cream);
-    text-decoration: none;
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    display: inline-block;
-    border-bottom: 1px solid transparent;
-    transition: all 0.25s ease;
-  }
-  .contact-block a:hover {
-    color: var(--coral);
-    border-bottom-color: var(--coral);
-  }
-  .contact-block a em { font-style: italic; }
-  @media (max-width: 640px) {
-    .contact-block a, .contact-block .val { font-size: 22px; }
-  }
-
-  /* Footer */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 40px 0;
-    margin-top: 60px;
-  }
-  footer .wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-  }
-  footer .heart { color: var(--coral); }
-
-  /* Reveal animations */
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-stagger > * {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-  }
-  .reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
-  .reveal-stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
-  .reveal-stagger.in > *:nth-child(2) { transition-delay: 0.12s; }
-  .reveal-stagger.in > *:nth-child(3) { transition-delay: 0.19s; }
-  .reveal-stagger.in > *:nth-child(4) { transition-delay: 0.26s; }
-  .reveal-stagger.in > *:nth-child(5) { transition-delay: 0.33s; }
-  .reveal-stagger.in > *:nth-child(6) { transition-delay: 0.4s; }
-  .reveal-stagger.in > *:nth-child(7) { transition-delay: 0.47s; }
-  .reveal-stagger.in > *:nth-child(8) { transition-delay: 0.54s; }
-  .reveal-stagger.in > *:nth-child(9) { transition-delay: 0.61s; }
-
-  /* Accessibility / mobile safety: respect reduced motion and make sure
-     content is always visible even if the IntersectionObserver doesn't
-     fire (browser quirk, fast scroll, no-JS, etc.) */
-  @media (prefers-reduced-motion: reduce) {
-    .reveal, .reveal-stagger > * {
-      opacity: 1 !important;
-      transform: none !important;
-      transition: none !important;
-    }
-  }
-  /* On narrow viewports the reveal animation occasionally fails to trigger
-     (the section is taller than the viewport, observer fires before content
-     is ready). Show everything by default on small screens. */
-  @media (max-width: 768px) {
-    .reveal, .reveal-stagger > * {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
-  /* No-JS fallback */
-  .no-js .reveal, .no-js .reveal-stagger > * {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  /* Selection */
-  ::selection {
-    background: var(--coral);
-    color: var(--bg);
-  }
-  ::-moz-selection {
-    background: var(--coral);
-    color: var(--bg);
-  }
+  /* marquee */
+  .marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;padding:22px 0}
+  .mtrack{display:flex;gap:56px;width:max-content;animation:scroll 40s linear infinite}
+  @media(prefers-reduced-motion:reduce){.mtrack{animation:none;flex-wrap:wrap}}
+  .mitem{font-family:var(--serif);font-size:28px;font-weight:300;color:var(--cream-soft);display:flex;align-items:center;gap:56px;white-space:nowrap}
+  .mitem:nth-child(even){font-style:italic;color:var(--muted)}
+  .mitem .d{width:7px;height:7px;background:var(--coral);border-radius:50%}
+  @keyframes scroll{to{transform:translateX(-50%)}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav>
+<nav aria-label="Primary">
   <div class="wrap">
-    <div class="logo">Mustafa Hamdy<span class="dot">.</span></div>
-    <ul class="nav-links">
+    <a class="logo" href="#top">Mustafa Hamdy<span class="dot">.</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="navlinks">Menu</button>
+    <ul class="nav-links" id="navlinks">
       <li><a href="#work">Work</a></li>
       <li><a href="#stack">Stack</a></li>
+      <li><a href="#process">Process</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a class="nav-cta" href="Mustafa-Hamdy-CV.pdf" download>Download CV</a></li>
     </ul>
   </div>
 </nav>
 
+<main id="main">
 <!-- HERO -->
-<header class="hero">
+<header class="hero" id="top">
   <div class="wrap">
-    <div class="hero-meta">
-      <span class="pulse"></span>
-      <span>AI Automation Engineer / Cairo, Egypt</span>
-      <span style="color: var(--muted-soft)">/</span>
-      <span>Available for collaboration</span>
+    <div class="badge"><span class="pulse" aria-hidden="true"></span><span>AI Automation Engineer · Cairo, Egypt · Open to Remote</span></div>
+    <h1>I build production<br><span class="it">AI automation</span> systems<span class="dot">.</span></h1>
+    <p class="hero-lead">I design, ship, and operate <em>end-to-end AI workflows</em> — the systems that replace manual operations for teams, and keep running in production.</p>
+    <p class="hero-sub">40+ production n8n workflows integrating LLMs (AWS Bedrock, Azure OpenAI GPT-4o), OCR, REST APIs, and 20+ SaaS platforms — built with retries, validation, monitoring, and human-in-the-loop where it matters.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#work">View case studies →</a>
+      <a class="btn btn-ghost" href="Mustafa-Hamdy-CV.pdf" download>Download CV</a>
+      <a class="btn btn-ghost" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/mustafa-hamdy-87479b243" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="mailto:mostafa3001mohamed@gmail.com">Email</a>
     </div>
-    <h1>
-      <span class="line">Mustafa</span>
-      <span class="line"><span class="last">Hamdy</span></span>
-    </h1>
-    <div class="hero-role">
-      <div>
-        <div class="tag">What I do</div>
-        <p>I design and ship <em>AI-driven automation systems</em> — n8n workflows, agents, and data pipelines that replace manual work for teams at scale.</p>
-      </div>
-      <div>
-        <div class="tag">Currently</div>
-        <p>Running production automation at <em>FortyGuard (USA)</em> — 2,000+ AI comments / week, full CRM pipelines, and the internal reporting suite for SD &amp; ML teams.</p>
-      </div>
+    <div class="hero-tags" aria-label="Core technologies">
+      <span class="tag">n8n</span><span class="tag">AI Agents</span><span class="tag">AWS Bedrock</span><span class="tag">GPT-4o</span><span class="tag">OCR</span><span class="tag">REST APIs · Webhooks</span><span class="tag">Python · JS</span><span class="tag">HubSpot · Jira</span>
     </div>
   </div>
 </header>
 
-<!-- TECH MARQUEE -->
-<div class="marquee">
-  <div class="marquee-track">
-    <div class="marquee-item"><span class="dot"></span>n8n</div>
-    <div class="marquee-item">AI Agents</div>
-    <div class="marquee-item"><span class="dot"></span>AWS Bedrock</div>
-    <div class="marquee-item">HubSpot</div>
-    <div class="marquee-item"><span class="dot"></span>Jira</div>
-    <div class="marquee-item">Clay</div>
-    <div class="marquee-item"><span class="dot"></span>Python</div>
-    <div class="marquee-item">REST APIs</div>
-    <div class="marquee-item"><span class="dot"></span>Webhooks</div>
-    <div class="marquee-item">Data Pipelines</div>
-    <div class="marquee-item"><span class="dot"></span>OCR</div>
-    <div class="marquee-item">NeverBounce</div>
-    <div class="marquee-item"><span class="dot"></span>LLM Integration</div>
-    <!-- Duplicate for seamless loop -->
-    <div class="marquee-item"><span class="dot"></span>n8n</div>
-    <div class="marquee-item">AI Agents</div>
-    <div class="marquee-item"><span class="dot"></span>AWS Bedrock</div>
-    <div class="marquee-item">HubSpot</div>
-    <div class="marquee-item"><span class="dot"></span>Jira</div>
-    <div class="marquee-item">Clay</div>
-    <div class="marquee-item"><span class="dot"></span>Python</div>
-    <div class="marquee-item">REST APIs</div>
-    <div class="marquee-item"><span class="dot"></span>Webhooks</div>
-    <div class="marquee-item">Data Pipelines</div>
-    <div class="marquee-item"><span class="dot"></span>OCR</div>
-    <div class="marquee-item">NeverBounce</div>
-    <div class="marquee-item"><span class="dot"></span>LLM Integration</div>
+<!-- METRICS BAND -->
+<section class="metrics" aria-label="Impact metrics" style="padding-top:0;padding-bottom:0">
+  <div class="wrap" style="padding:0">
+    <div class="grid">
+      <div class="metric"><div class="n">40<em>+</em></div><div class="l">Production workflows built</div></div>
+      <div class="metric"><div class="n">400<em>+</em></div><div class="l">LinkedIn profiles orchestrated</div></div>
+      <div class="metric"><div class="n">25<em>k+</em></div><div class="l">Contacts AI-segmented</div></div>
+      <div class="metric"><div class="n">4,740</div><div class="l">Profiles enriched (→10 API calls)</div></div>
+      <div class="metric"><div class="n">785</div><div class="l">Verified senior contacts</div></div>
+      <div class="metric"><div class="n">60<em>%</em></div><div class="l">Manual work eliminated</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="mtrack">
+    <div class="mitem"><span class="d"></span>n8n</div><div class="mitem">AI Agents</div><div class="mitem"><span class="d"></span>AWS Bedrock</div><div class="mitem">GPT-4o</div><div class="mitem"><span class="d"></span>OCR</div><div class="mitem">REST APIs</div><div class="mitem"><span class="d"></span>Webhooks</div><div class="mitem">HubSpot</div><div class="mitem"><span class="d"></span>Jira</div><div class="mitem">Python</div>
+    <div class="mitem"><span class="d"></span>n8n</div><div class="mitem">AI Agents</div><div class="mitem"><span class="d"></span>AWS Bedrock</div><div class="mitem">GPT-4o</div><div class="mitem"><span class="d"></span>OCR</div><div class="mitem">REST APIs</div><div class="mitem"><span class="d"></span>Webhooks</div><div class="mitem">HubSpot</div><div class="mitem"><span class="d"></span>Jira</div><div class="mitem">Python</div>
   </div>
 </div>
 
-<!-- ABOUT -->
-<section id="about">
+<!-- WHAT I DO -->
+<section id="about" aria-labelledby="about-t">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-num">[01]<span class="dot"> /</span> About</div>
-      <h2 class="section-title">The <em>workflow</em> guy.</h2>
+    <div class="sec-head reveal">
+      <div class="sec-num">[01]<span class="dot"> /</span> Approach</div>
+      <div>
+        <h2 class="sec-title" id="about-t">Design. Build. <em>Operate.</em></h2>
+        <p class="sec-intro">I don't hand off pretty diagrams. I own automation end-to-end — from the business problem to the workflow that quietly runs in production every day.</p>
+      </div>
     </div>
-    <div class="about-grid reveal">
-      <div class="section-num">Profile</div>
-      <div class="about-text">
-        <p>I'm an <em>AI Automation Engineer</em> based in Egypt, building scalable workflows that connect APIs, AI models, and business systems. My focus: <strong>turning manual operations into reliable, intelligent automation</strong>.</p>
-        <p>Most of my work runs in production at FortyGuard — orchestrating LinkedIn lead generation at scale, ingesting weekly team briefings into structured reports, and powering AI agents that triage business data from images, calls, and documents.</p>
-        <p>I care about <em>resilience as much as cleverness</em>: every workflow has error handling, retries, validation, and monitoring. Pretty diagrams that fall over in production are not the goal.</p>
-      </div>
-      <div class="stat-stack">
-        <div class="stat">
-          <div class="num">40<em>+</em></div>
-          <div class="lbl">Production Workflows Built</div>
-        </div>
-        <div class="stat">
-          <div class="num">400<em>+</em></div>
-          <div class="lbl">LinkedIn Profiles Orchestrated</div>
-        </div>
-        <div class="stat">
-          <div class="num">25<em>k+</em></div>
-          <div class="lbl">Contacts AI-Segmented</div>
-        </div>
-        <div class="stat">
-          <div class="num">60<em>%</em></div>
-          <div class="lbl">Manual Work Eliminated</div>
-        </div>
-      </div>
+    <div class="pillars reveal">
+      <div class="pillar"><div class="k">01 · Design</div><h3>Systems, not <em>scripts</em></h3><p>I start from the business process and the failure modes — mapping triggers, data flow, AI decisions, and human checkpoints before a single node is placed.</p></div>
+      <div class="pillar"><div class="k">02 · Build</div><h3>AI where it <em>earns its place</em></h3><p>LLMs for extraction, classification, and generation — wrapped in structured outputs, validation, and cost controls so the intelligence is reliable, not a demo.</p></div>
+      <div class="pillar"><div class="k">03 · Operate</div><h3>Built to <em>survive production</em></h3><p>Retries, rate limiting, idempotency, dedup, logging, and monitoring on every workflow. If it can be re-run at the worst moment, it should be safe.</p></div>
     </div>
   </div>
 </section>
 
 <!-- FEATURED WORK -->
-<section id="work">
+<section id="work" aria-labelledby="work-t">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-num">[02]<span class="dot"> /</span> Featured Work</div>
-      <h2 class="section-title">Selected <em>case studies.</em></h2>
+    <div class="sec-head reveal">
+      <div class="sec-num">[02]<span class="dot"> /</span> Case Studies</div>
+      <div>
+        <h2 class="sec-title" id="work-t">Selected <em>systems,</em> <span class="ac">in depth.</span></h2>
+        <p class="sec-intro">Six production systems — each with architecture, workflow, integrations, AI components, reliability engineering, and measured business impact.</p>
+      </div>
     </div>
 
-    <!-- CASE 01: LinkedIn -->
-    <article class="case reveal">
-      <div class="case-header">
+    <!-- CS 01 -->
+    <article class="cs reveal" id="cs-linkedin" aria-labelledby="cs1-t">
+      <div class="cs-head">
+        <div class="cs-idx"><span class="ac">CS</span><br>01</div>
         <div>
-          <div class="case-num"><span class="accent">CS</span> / 001</div>
-        </div>
-        <h3>AI-Powered LinkedIn Lead <em>Engagement Engine</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">n8n</span>
-          <span class="case-tag">AWS Bedrock</span>
-          <span class="case-tag">AI Agents</span>
-          <span class="case-tag">Apify</span>
-          <span class="case-tag">Google Sheets</span>
+          <div class="cs-cat">LinkedIn Automation · AI Agents · Outbound</div>
+          <h2 class="cs-title" id="cs1-t">AI LinkedIn Lead <em>Engagement Engine</em></h2>
+          <p class="cs-lead">A multi-workflow system that scales founder-led LinkedIn engagement across hundreds of prospects — acting human, staying safe, and turning passive engagement into pipeline.</p>
+          <div class="cs-tags"><span class="tag">n8n</span><span class="tag">Apify</span><span class="tag">Unipile</span><span class="tag">AWS Bedrock</span><span class="tag">GPT-4o</span><span class="tag">Google Sheets</span></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">The brief</div>
-        <div class="content">
-          <p>FortyGuard needed to scale founder-led outreach without burning out the team — or getting flagged by LinkedIn. The system had to <em>act human, sound human, and stay safe</em> while engaging hundreds of targeted prospects every day.</p>
+      <div class="cs-grid">
+        <div class="cs-main">
+          <div class="cs-block"><h4>Business problem</h4><p>FortyGuard needed to scale founder-led outreach to hundreds of targeted prospects without burning out the team — or getting the account flagged by LinkedIn. The system had to act human, sound human, and stay within platform safety limits.</p></div>
+          <div class="cs-block"><h4>Technical challenges</h4><ul>
+            <li>Generating comments that read as <strong>written, not generated</strong> — a persona prompt producing 1–3 line, human-tone replies with no generic praise.</li>
+            <li>Staying under platform radar with <strong>randomized behavioral pacing</strong> and controlled execution windows.</li>
+            <li>Preventing duplicate comments and double-fires across 5 daily runs via status tracking + dedup.</li>
+            <li>Managing session/cookie auth and API rate limits reliably at scale.</li>
+          </ul></div>
+          <div class="cs-block"><h4>Lessons learned</h4><p>Generation was the easy 20%. The 80% that made it production-worthy was reliability — pacing, deduplication, and safe re-runs. AI is a component; the system around it is the job.</p></div>
+        </div>
+        <aside class="spec" aria-label="Technical specification">
+          <div class="row"><div class="rk">Tech</div><div class="rv">n8n (self-hosted), JavaScript Code nodes, Google Sheets</div></div>
+          <div class="row"><div class="rk">API integrations</div><div class="rv"><b>Apify</b> (scraping), <b>Unipile</b> (post/DM), <b>Google Sheets</b>, AWS Bedrock, Azure OpenAI</div></div>
+          <div class="row"><div class="rk">AI components</div><div class="rv">GPT-4o persona-prompt comment generation · Bedrock DM personalization · AI Agent + <b>Structured Output Parser</b> (HIGH/MED/LOW) · Simple Memory</div></div>
+          <div class="row"><div class="rk">Deployment</div><div class="rv">Self-hosted n8n on VPS · 5 scheduled runs/day</div></div>
+          <div class="row"><div class="rk">Monitoring</div><div class="rv">Google Sheets status columns as audit trail · n8n execution logs</div></div>
+          <div class="row"><div class="rk">Error handling</div><div class="rv">Wait-node rate limiting · per-item looping · retry on failure · dedup on processed IDs</div></div>
+          <div class="row"><div class="rk">Scalability</div><div class="rv">5 parallel scraping engines · per-profile queueing · designed for 400+ profiles</div></div>
+        </aside>
+      </div>
+
+      <div class="diag-wrap">
+        <h4>System architecture</h4>
+        <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+        <div class="arch" role="img" aria-label="Architecture: scheduled triggers feed five Apify scraping engines, storing posts in Google Sheets; an AI layer (GPT-4o and Bedrock) generates comments and qualifies leads; Unipile posts comments and DMs; status is written back to Sheets.">
+          <div class="tier"><div class="tl">Triggers</div><div class="tn"><span class="node trig">Schedule ×5/day</span><span class="node trig">Reply detection</span></div></div>
+          <div class="tier"><div class="tl">Ingestion</div><div class="tn"><span class="node int">Apify engine 1–5</span><span class="node store">Google Sheets (posts)</span></div></div>
+          <div class="tier"><div class="tl">AI layer</div><div class="tn"><span class="node ai">GPT-4o comment gen</span><span class="node ai">AI Agent · lead qualifier</span><span class="node ai">Bedrock DM writer</span></div></div>
+          <div class="tier"><div class="tl">Action</div><div class="tn"><span class="node int">Unipile · post comment</span><span class="node int">Unipile · send DM</span><span class="node store">Sheets · status</span></div></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">What I built</div>
-        <div class="content">
-          <ul>
-            <li>Five parallel <em>scraping engines</em> that monitor target lists and pull fresh LinkedIn posts on schedule across 400+ profiles</li>
-            <li>An <em>AI comment generator</em> using AWS Bedrock with tone-matching prompts to produce comments that read as written, not generated — publishing <strong>2,000+ comments per week</strong></li>
-            <li><strong>Randomized scheduling and behavioral delays</strong> to mimic natural human activity and avoid platform flags</li>
-            <li>Reply-detection workflows that trigger <em>contextual follow-ups</em> and route hot leads into a DM outreach agent</li>
-            <li>Centralized Google Sheets dashboard for monitoring engagement, replies, and conversion in real time</li>
-          </ul>
+      <div class="diag-wrap">
+        <h4>Workflow</h4>
+        <div class="flow" role="img" aria-label="Workflow: schedule triggers Apify scraping into Google Sheets, GPT-4o generates a comment, Unipile posts it, reply detection routes hot leads to an AI DM agent, and status is written back to Sheets.">
+          <span class="node trig">Schedule</span><span class="arrow">→</span><span class="node int">Apify scrape posts</span><span class="arrow">→</span><span class="node store">Sheets store</span><span class="arrow">→</span><span class="node ai">GPT-4o comment</span><span class="arrow">→</span><span class="node int">Unipile post</span><span class="arrow">→</span><span class="node trig">Reply?</span><span class="arrow">→</span><span class="node ai">AI DM agent (HIGH)</span><span class="arrow">→</span><span class="node store">Sheets status</span>
         </div>
       </div>
-      <div class="workflow-img">
-        <span class="badge">● Production / 01</span>
-        <img src="workflows/01-linkedin-post-scraping.jpeg" alt="LinkedIn Post Scraping Automation Engine — n8n workflow with 5 parallel scraping engines" loading="lazy" decoding="async" width="1600" height="900" />
+
+      <div class="impact">
+        <div class="itile"><div class="n">400<em>+</em></div><div class="l">Profiles engaged with AI comments</div></div>
+        <div class="itile alt"><div class="n">5<em>×/day</em></div><div class="l">Scheduled engagement runs</div></div>
+        <div class="itile"><div class="n">~65<em>%</em></div><div class="l">Comment post-success rate</div></div>
+        <div class="itile alt"><div class="n">24<em>/7</em></div><div class="l">Autonomous operation</div></div>
       </div>
-      <div class="stack-row">
-        <div class="workflow-img">
-          <span class="badge">● Production / 02</span>
-          <img src="workflows/02-linkedin-comment-engine.jpeg" alt="LinkedIn Comment Automation Engine — AI-generated comments with AWS Bedrock" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="workflow-img">
-          <span class="badge">● Production / 03</span>
-          <img src="workflows/06-fg-linkedin-outreach-dm.jpeg" alt="LinkedIn High Leads Outreach DM Automation with AI Agent" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-      </div>
-      <div class="case-impact">
-        <div>
-          <div class="impact-num">2k<em>+</em></div>
-          <div class="impact-lbl">AI comments published per week</div>
-        </div>
-        <div>
-          <div class="impact-num alt">400<em>+</em></div>
-          <div class="impact-lbl">Profiles orchestrated in parallel</div>
-        </div>
-        <div>
-          <div class="impact-num">5<em>x</em></div>
-          <div class="impact-lbl">Daily scheduled executions</div>
-        </div>
-        <div>
-          <div class="impact-num alt">24<em>/7</em></div>
-          <div class="impact-lbl">Autonomous operation</div>
-        </div>
+
+      <div class="shots">
+        <figure class="shot"><span class="cap">● Post scraping</span><img src="workflows/01-linkedin-post-scraping.jpeg" alt="n8n workflow: five parallel LinkedIn post-scraping engines feeding Google Sheets" loading="lazy" decoding="async"></figure>
+        <figure class="shot"><span class="cap">● AI comment engine</span><img src="workflows/02-linkedin-comment-engine.jpeg" alt="n8n workflow: AI comment generation and posting via Unipile" loading="lazy" decoding="async"></figure>
+        <figure class="shot"><span class="cap">● DM outreach agent</span><img src="workflows/06-fg-linkedin-outreach-dm.jpeg" alt="n8n workflow: AI DM outreach agent for high-qualified leads" loading="lazy" decoding="async"></figure>
       </div>
     </article>
 
-    <!-- CASE 02: WhatsApp Business Card -->
-    <article class="case reveal">
-      <div class="case-header">
+    <!-- CS 02 -->
+    <article class="cs reveal" id="cs-whatsapp" aria-labelledby="cs2-t">
+      <div class="cs-head">
+        <div class="cs-idx"><span class="ac">CS</span><br>02</div>
         <div>
-          <div class="case-num"><span class="accent">CS</span> / 002</div>
-        </div>
-        <h3>WhatsApp Business Card <em>AI Agent</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">WhatsApp API</span>
-          <span class="case-tag">Vision OCR</span>
-          <span class="case-tag">HubSpot</span>
-          <span class="case-tag">AWS Bedrock</span>
-          <span class="case-tag">Google Drive</span>
-          <span class="case-tag">Gmail</span>
+          <div class="cs-cat">Document AI · OCR · CRM</div>
+          <h2 class="cs-title" id="cs2-t">WhatsApp → CRM <em>Business-Card Pipeline</em></h2>
+          <p class="cs-lead">Snap a business card, send it to a WhatsApp number, and it becomes a clean, deduplicated CRM contact in seconds — no manual re-typing, ever.</p>
+          <div class="cs-tags"><span class="tag">WhatsApp Business API</span><span class="tag">Google Vision OCR</span><span class="tag">LLM</span><span class="tag">HubSpot</span><span class="tag">Google Drive</span></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">The brief</div>
-        <div class="content">
-          <p>The team was collecting business cards at events and meetings, then losing them or manually retyping every field into HubSpot. The pipeline had to be <em>frictionless</em> — snap a photo, send it to a WhatsApp number, and let the system handle everything.</p>
+      <div class="cs-grid">
+        <div class="cs-main">
+          <div class="cs-block"><h4>Business problem</h4><p>The team collected business cards at events and meetings, then lost them or manually retyped every field into HubSpot. The pipeline had to be frictionless and reliable enough to trust with lead data.</p></div>
+          <div class="cs-block"><h4>Technical challenges</h4><ul>
+            <li>OCR output is noisy — an <strong>LLM after OCR</strong> normalizes raw text into strict, CRM-safe JSON.</li>
+            <li>Deduplication on email/phone so re-sent cards update rather than duplicate contacts.</li>
+            <li>Explicit handling of every failure mode: missing image, OCR failure, malformed LLM output, CRM API error.</li>
+          </ul></div>
+          <div class="cs-block"><h4>Lessons learned</h4><p>Chaining an LLM behind OCR is what turned an unreliable text dump into structured data safe to write to a CRM. Validation gates before every external write prevent silent corruption.</p></div>
+        </div>
+        <aside class="spec" aria-label="Technical specification">
+          <div class="row"><div class="rk">Tech</div><div class="rv">n8n, JavaScript, base64 media handling</div></div>
+          <div class="row"><div class="rk">API integrations</div><div class="rv"><b>WhatsApp Business Cloud API</b>, <b>Google Vision OCR</b>, Google Drive, Google Sheets, <b>HubSpot</b></div></div>
+          <div class="row"><div class="rk">AI components</div><div class="rv">Google Vision OCR + LLM (AWS Bedrock) structured extraction → JSON (name, role, company, email, phone, website)</div></div>
+          <div class="row"><div class="rk">Deployment</div><div class="rv">Self-hosted n8n · WhatsApp webhook trigger (event-driven)</div></div>
+          <div class="row"><div class="rk">Monitoring</div><div class="rv">Sheets record of every card · error logging per stage</div></div>
+          <div class="row"><div class="rk">Error handling</div><div class="rv">Media validation · graceful stop on no-image · try/branch on OCR &amp; parse failures · CRM retry</div></div>
+          <div class="row"><div class="rk">Scalability</div><div class="rv">Stateless per-message processing · handles concurrent senders</div></div>
+        </aside>
+      </div>
+      <div class="diag-wrap">
+        <h4>System architecture</h4>
+        <div class="arch" role="img" aria-label="Architecture: WhatsApp webhook trigger, Google Vision OCR and LLM AI layer, integrations to Drive/Sheets/HubSpot, and a WhatsApp confirmation output.">
+          <div class="tier"><div class="tl">Trigger</div><div class="tn"><span class="node trig">WhatsApp inbound image</span></div></div>
+          <div class="tier"><div class="tl">AI layer</div><div class="tn"><span class="node ai">Google Vision OCR</span><span class="node ai">LLM structured extraction</span></div></div>
+          <div class="tier"><div class="tl">Integrations</div><div class="tn"><span class="node int">Drive (archive)</span><span class="node store">Sheets (record)</span><span class="node int">HubSpot upsert</span></div></div>
+          <div class="tier"><div class="tl">Output</div><div class="tn"><span class="node int">WhatsApp confirmation</span></div></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">What I built</div>
-        <div class="content">
-          <ul>
-            <li>WhatsApp trigger that receives business card photos and routes them through <em>Google Vision OCR</em> for raw text extraction</li>
-            <li>LLM chain that <em>parses extracted text</em> into structured contact records (name, role, company, email, phone, website)</li>
-            <li>Automatic archive of the raw image to <em>Google Drive</em> and the parsed record to <em>Google Sheets</em></li>
-            <li>HubSpot contact upsert with <em>deduplication logic</em>, then a personalized intro email queued via Gmail</li>
-            <li>Confirmation message back to the sender on WhatsApp — full loop closed in under a minute</li>
-          </ul>
+      <div class="diag-wrap">
+        <h4>Workflow (14 steps, condensed)</h4>
+        <div class="flow" role="img" aria-label="Workflow: WhatsApp trigger, media validation, OCR, LLM extraction, JSON parse, Drive archive, Sheets record, HubSpot dedup upsert, WhatsApp confirmation.">
+          <span class="node trig">WhatsApp trigger</span><span class="arrow">→</span><span class="node">Validate media</span><span class="arrow">→</span><span class="node ai">Vision OCR</span><span class="arrow">→</span><span class="node ai">LLM → JSON</span><span class="arrow">→</span><span class="node int">Drive archive</span><span class="arrow">→</span><span class="node store">Sheets</span><span class="arrow">→</span><span class="node int">HubSpot upsert (dedup)</span><span class="arrow">→</span><span class="node int">WhatsApp confirm</span>
         </div>
       </div>
-      <div class="workflow-img">
-        <span class="badge">● Production / 08</span>
-        <img src="workflows/08-whatsapp-business-card-agent.jpeg" alt="WhatsApp AI Agent for Business Card processing pipeline" loading="lazy" decoding="async" width="1600" height="900" />
+      <div class="impact">
+        <div class="itile"><div class="n">&lt;1<em>min</em></div><div class="l">Card photo → CRM contact</div></div>
+        <div class="itile alt"><div class="n">14</div><div class="l">Steps fully automated</div></div>
+        <div class="itile"><div class="n">0</div><div class="l">Manual re-typing into CRM</div></div>
+        <div class="itile alt"><div class="n">100<em>%</em></div><div class="l">Dedup on email / phone</div></div>
       </div>
-      <div class="case-impact">
-        <div>
-          <div class="impact-num">&lt;1<em>min</em></div>
-          <div class="impact-lbl">Card photo → CRM contact</div>
-        </div>
-        <div>
-          <div class="impact-num alt">14</div>
-          <div class="impact-lbl">Steps fully automated</div>
-        </div>
-        <div>
-          <div class="impact-num">0</div>
-          <div class="impact-lbl">Manual re-typing into CRM</div>
-        </div>
-        <div>
-          <div class="impact-num alt">100<em>%</em></div>
-          <div class="impact-lbl">Dedup on email / phone</div>
-        </div>
+      <div class="shots">
+        <figure class="shot"><span class="cap">● WhatsApp AI agent</span><img src="workflows/08-whatsapp-business-card-agent.jpeg" alt="n8n workflow: WhatsApp business-card OCR to HubSpot pipeline" loading="lazy" decoding="async"></figure>
       </div>
     </article>
 
-    <!-- CASE 03: Internal Operations -->
-    <article class="case reveal">
-      <div class="case-header">
+    <!-- CS 03 -->
+    <article class="cs reveal" id="cs-segment" aria-labelledby="cs3-t">
+      <div class="cs-head">
+        <div class="cs-idx"><span class="ac">CS</span><br>03</div>
         <div>
-          <div class="case-num"><span class="accent">CS</span> / 003</div>
-        </div>
-        <h3>Team Briefing <em>Ingestion & Reporting Suite</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">n8n</span>
-          <span class="case-tag">Jira</span>
-          <span class="case-tag">Gmail API</span>
-          <span class="case-tag">AI Agents</span>
-          <span class="case-tag">Structured Output</span>
-          <span class="case-tag">Drift Detection</span>
+          <div class="cs-cat">AI Classification · CRM · Data Enrichment</div>
+          <h2 class="cs-title" id="cs3-t">AI Contact <em>Segmentation</em> at 25k Scale</h2>
+          <p class="cs-lead">Turned 25,000+ email-only HubSpot contacts into a targetable, segmented database using domain grouping and website-content LLM classification — with a cost gate baked in.</p>
+          <div class="cs-tags"><span class="tag">n8n</span><span class="tag">Azure OpenAI</span><span class="tag">HubSpot</span><span class="tag">Web scraping</span><span class="tag">LLM classification</span></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">The brief</div>
-        <div class="content">
-          <p>Two teams — Software Development and Machine Learning — were running Monday briefings and Friday debriefs every week. Notes lived in Jira, commitments lived in email, drift went undetected. Leadership needed <em>one unified, automated weekly view</em>.</p>
+      <div class="cs-grid">
+        <div class="cs-main">
+          <div class="cs-block"><h4>Business problem</h4><p>HubSpot held 25,000+ contacts with nothing but an email address — no industry or segment — so targeted campaigns were impossible and manual sorting didn't scale.</p></div>
+          <div class="cs-block"><h4>Technical challenges</h4><ul>
+            <li><strong>Cost control at scale</strong>: grouping by email domain avoided redundant company lookups; a webhook variant gated AI to business domains only, skipping free/personal domains.</li>
+            <li>Token-budgeted website truncation to keep classification cheap and fast.</li>
+            <li>Fallback logic for inconsistent LLM output so every contact always resolves to a category.</li>
+          </ul></div>
+          <div class="cs-block"><h4>Lessons learned</h4><p>Cost is a design decision, not an afterthought. Domain grouping + a business-domain gate cut LLM calls dramatically while keeping quality — the difference between a viable pipeline and an expensive one.</p></div>
+        </div>
+        <aside class="spec" aria-label="Technical specification">
+          <div class="row"><div class="rk">Tech</div><div class="rv">n8n, HTTP requests, JavaScript</div></div>
+          <div class="row"><div class="rk">API integrations</div><div class="rv"><b>HubSpot</b> (read + custom property + Active Lists), HTTP website fetch, <b>Azure OpenAI GPT-4o</b></div></div>
+          <div class="row"><div class="rk">AI components</div><div class="rv">LLM classification into 6 market categories · confidence score + reasoning · fallback category logic</div></div>
+          <div class="row"><div class="rk">Deployment</div><div class="rv">Re-runnable batch workflow + webhook variant (Instantly → HubSpot) for live leads</div></div>
+          <div class="row"><div class="rk">Monitoring</div><div class="rv">Per-contact category + confidence written back to HubSpot</div></div>
+          <div class="row"><div class="rk">Error handling</div><div class="rv">Batch processing to avoid API overload · domain gate · output-format fallback</div></div>
+          <div class="row"><div class="rk">Scalability</div><div class="rv">Domain grouping collapses 25k contacts into far fewer company lookups</div></div>
+        </aside>
+      </div>
+      <div class="diag-wrap">
+        <h4>Workflow</h4>
+        <div class="flow" role="img" aria-label="Workflow: pull HubSpot contacts, group by email domain, fetch and clean company website, LLM classifies into 6 categories, split back to individuals, write segment to HubSpot and auto-populate active lists.">
+          <span class="node int">HubSpot contacts</span><span class="arrow">→</span><span class="node">Group by domain</span><span class="arrow">→</span><span class="node int">Fetch website</span><span class="arrow">→</span><span class="node">Clean + truncate</span><span class="arrow">→</span><span class="node ai">LLM classify (6 cats)</span><span class="arrow">→</span><span class="node">Split to contacts</span><span class="arrow">→</span><span class="node int">HubSpot segment + lists</span>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">What I built</div>
-        <div class="content">
-          <ul>
-            <li>Monday <em>briefing ingestion</em> pulls Jira tickets, normalizes them, and runs an AI agent against a structured output parser to extract scope, owners, and risk signals</li>
-            <li>Email-based <em>commitment reconciliation</em> — parses replies from inbox, matches against the Jira sheet, and flags missing or shifted commitments</li>
-            <li>Friday <em>debrief transcripts</em> are normalized via LLM, then converted into HTML reports and sent directly to leadership</li>
-            <li>Midweek <em>drift detection</em> compares scope between Monday and Wednesday — classifies drift type (scope creep, risk increase, task count change) and routes a focused report</li>
-            <li>Separate report variants for the <em>SD team</em> and <em>ML team</em> with team-specific hierarchies and metrics</li>
-          </ul>
-        </div>
+      <div class="impact">
+        <div class="itile"><div class="n">25<em>k+</em></div><div class="l">Contacts segmented</div></div>
+        <div class="itile alt"><div class="n">6</div><div class="l">Market categories</div></div>
+        <div class="itile"><div class="n">100<em>%</em></div><div class="l">Auto-populated to active lists</div></div>
+        <div class="itile alt"><div class="n">↓</div><div class="l">LLM calls via domain grouping + gate</div></div>
       </div>
-      <div class="stack-row">
-        <div class="workflow-img">
-          <span class="badge">● Production / 10</span>
-          <img src="workflows/10-monday-briefing-ingestion.jpeg" alt="Monday Briefing Ingestion Automation with AI Agent and structured output parser" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="workflow-img">
-          <span class="badge">● Production / 09</span>
-          <img src="workflows/09-monday-commitment-email.jpeg" alt="Monday post-briefing commitment email ingestion + reconciliation ML" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="workflow-img">
-          <span class="badge">● Production / 14</span>
-          <img src="workflows/14-midweek-drift-detection.jpeg" alt="Midweek drift detection workflow with scope and risk classifiers" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="workflow-img">
-          <span class="badge">● Production / 11</span>
-          <img src="workflows/11-friday-transcript-report.jpeg" alt="Friday debriefing Transcript Report with HTML output and Gmail delivery" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-      </div>
-      <div class="case-impact">
-        <div>
-          <div class="impact-num">7</div>
-          <div class="impact-lbl">Interlinked workflows in suite</div>
-        </div>
-        <div>
-          <div class="impact-num alt">2</div>
-          <div class="impact-lbl">Teams operating in parallel</div>
-        </div>
-        <div>
-          <div class="impact-num">100<em>%</em></div>
-          <div class="impact-lbl">Automated report delivery</div>
-        </div>
-        <div>
-          <div class="impact-num alt">∞</div>
-          <div class="impact-lbl">Hours of manual reporting saved</div>
-        </div>
+      <div class="shots">
+        <figure class="shot"><span class="cap">● HubSpot AI segmentation</span><img src="workflows/18-hubspot-ai-segmentation.jpeg" alt="n8n workflow: domain grouping and LLM classification writing segments to HubSpot" loading="lazy" decoding="async"></figure>
       </div>
     </article>
 
-    <!-- CASE 04: HubSpot Segmentation -->
-    <article class="case reveal">
-      <div class="case-header">
+    <!-- CS 04 -->
+    <article class="cs reveal" id="cs-reporting" aria-labelledby="cs4-t">
+      <div class="cs-head">
+        <div class="cs-idx"><span class="ac">CS</span><br>04</div>
         <div>
-          <div class="case-num"><span class="accent">CS</span> / 004</div>
-        </div>
-        <h3>AI Contact <em>Segmentation in HubSpot</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">HubSpot</span>
-          <span class="case-tag">AWS Bedrock</span>
-          <span class="case-tag">LLM Classification</span>
-          <span class="case-tag">Domain Enrichment</span>
+          <div class="cs-cat">Internal Ops · AI Extraction · Governance</div>
+          <h2 class="cs-title" id="cs4-t">Executive Reporting &amp; <em>Drift-Detection Suite</em></h2>
+          <p class="cs-lead">7+ interlinked workflows that ingest team briefings, reconcile Jira against email commitments, and surface scope/risk drift — as automated reports leadership actually trusts.</p>
+          <div class="cs-tags"><span class="tag">n8n</span><span class="tag">Jira</span><span class="tag">Gmail API</span><span class="tag">AI extraction</span><span class="tag">RAG status</span><span class="tag">HTML reports</span></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">The brief</div>
-        <div class="content">
-          <p>Thousands of unsorted contacts in HubSpot, no consistent segmentation. The team needed <em>category-level signal</em> — is this a SaaS startup, an enterprise, an agency, an investor — to power targeted outreach campaigns.</p>
+      <div class="cs-grid">
+        <div class="cs-main">
+          <div class="cs-block"><h4>Business problem</h4><p>Two teams (Software Dev and ML) ran Monday briefings and Friday debriefs. Notes lived in Jira, commitments lived in email, and scope drift went undetected until it became a delivery problem. Leadership needed one automated, trustworthy weekly view.</p></div>
+          <div class="cs-block"><h4>Technical challenges</h4><ul>
+            <li>Multi-stage AI extraction of tasks/decisions/commitments with <strong>confidence scoring and speaker attribution</strong>.</li>
+            <li>Reconciling free-text commitments against Jira via semantic similarity → OK / MISMATCH / NO_MATCH.</li>
+            <li>Encoding <strong>governance as workflow logic</strong>: no delivery accepted on narrative alone — evidence required, approvals sequenced.</li>
+            <li>Idempotency so re-runs never double-post to Jira.</li>
+          </ul></div>
+          <div class="cs-block"><h4>Lessons learned</h4><p>"Don't accept a spoken claim without evidence" became a rule I encoded directly into the pipeline. Automation isn't just faster reporting — it can enforce process discipline humans skip.</p></div>
+        </div>
+        <aside class="spec" aria-label="Technical specification">
+          <div class="row"><div class="rk">Tech</div><div class="rv">n8n (Cron, Code, IF), Google Sheets snapshots, HTML rendering</div></div>
+          <div class="row"><div class="rk">API integrations</div><div class="rv"><b>Jira</b> (sprints, issues, comments), <b>Gmail</b> (commitment emails + delivery), Google Sheets/Drive</div></div>
+          <div class="row"><div class="rk">AI components</div><div class="rv">Multi-stage AI extraction · semantic-similarity matching · drift classification <b>DR1–DR8</b></div></div>
+          <div class="row"><div class="rk">Deployment</div><div class="rv">Scheduled crons — Mon 18:00 &amp; Fri 20:00 (Asia/Dubai), Tue 11:00 (Africa/Cairo)</div></div>
+          <div class="row"><div class="rk">Monitoring</div><div class="rv">Meeting records with execution status · matched/missing counts per run</div></div>
+          <div class="row"><div class="rk">Error handling</div><div class="rv">Fail-fast on missing transcript · Jira retry · partial-success marking · unique-ID idempotency</div></div>
+          <div class="row"><div class="rk">Scalability</div><div class="rv">Team-specific variants (SD + ML) · baseline vs actual snapshots · RAG roll-ups</div></div>
+        </aside>
+      </div>
+      <div class="diag-wrap">
+        <h4>System architecture</h4>
+        <div class="arch" role="img" aria-label="Architecture: scheduled triggers plus transcript uploads feed AI extraction and Jira snapshots; reconciliation and drift classification compute RAG status; HTML reports are emailed to leadership.">
+          <div class="tier"><div class="tl">Triggers</div><div class="tn"><span class="node trig">Cron (Mon/Wed/Fri/Tue)</span><span class="node trig">Transcript upload</span></div></div>
+          <div class="tier"><div class="tl">Sources</div><div class="tn"><span class="node int">Jira sprint snapshot</span><span class="node int">Gmail commitments</span><span class="node store">Sheets baseline</span></div></div>
+          <div class="tier"><div class="tl">AI + logic</div><div class="tn"><span class="node ai">AI extraction</span><span class="node ai">Semantic match</span><span class="node ai">Drift classifier DR1–DR8</span><span class="node">RAG roll-up</span></div></div>
+          <div class="tier"><div class="tl">Output</div><div class="tn"><span class="node">HTML report</span><span class="node int">Gmail → leadership</span></div></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">What I built</div>
-        <div class="content">
-          <ul>
-            <li>Pulls all contacts from HubSpot and <em>groups them by email domain</em> to avoid redundant company lookups</li>
-            <li>Fetches the company website, cleans the HTML, and runs the content through an <em>LLM classification chain</em></li>
-            <li>Final category decision pipeline + email <em>splitting per contact</em> within each company</li>
-            <li>Writes the final segment back to HubSpot as a custom property — ready for list-based campaigns</li>
-          </ul>
+      <div class="diag-wrap">
+        <h4>Reconciliation workflow</h4>
+        <div class="flow" role="img" aria-label="Workflow: pull Jira sprint and email commitments, normalize, reconcile to OK, mismatch, or no-match, build HTML issues-only report, email leadership.">
+          <span class="node trig">Cron</span><span class="arrow">→</span><span class="node int">Jira sprint</span><span class="arrow">→</span><span class="node int">Gmail commitments</span><span class="arrow">→</span><span class="node">Normalize</span><span class="arrow">→</span><span class="node ai">Reconcile OK/MISMATCH/NO_MATCH</span><span class="arrow">→</span><span class="node">HTML report</span><span class="arrow">→</span><span class="node int">Email leadership</span>
         </div>
       </div>
-      <div class="workflow-img">
-        <span class="badge">● Production / 18</span>
-        <img src="workflows/18-hubspot-ai-segmentation.jpeg" alt="AI-Based Contact Segmentation in HubSpot — domain grouping, LLM classification, and category routing" loading="lazy" decoding="async" width="1600" height="900" />
+      <div class="impact">
+        <div class="itile"><div class="n">7<em>+</em></div><div class="l">Interlinked workflows</div></div>
+        <div class="itile alt"><div class="n">2</div><div class="l">Teams (SD + ML) in parallel</div></div>
+        <div class="itile"><div class="n">DR1–8</div><div class="l">Drift classification taxonomy</div></div>
+        <div class="itile alt"><div class="n">100<em>%</em></div><div class="l">Automated report delivery</div></div>
+      </div>
+      <div class="shots">
+        <figure class="shot"><span class="cap">● Monday briefing ingestion</span><img src="workflows/10-monday-briefing-ingestion.jpeg" alt="n8n workflow: Monday briefing ingestion with AI extraction and Jira reconciliation" loading="lazy" decoding="async"></figure>
+        <figure class="shot"><span class="cap">● Midweek drift detection</span><img src="workflows/14-midweek-drift-detection.jpeg" alt="n8n workflow: midweek drift detection comparing baseline and actual snapshots" loading="lazy" decoding="async"></figure>
+        <figure class="shot"><span class="cap">● Friday transcript report</span><img src="workflows/11-friday-transcript-report.jpeg" alt="n8n workflow: Friday debrief transcript normalized to an HTML report" loading="lazy" decoding="async"></figure>
+        <figure class="shot"><span class="cap">● Commitment reconciliation</span><img src="workflows/09-monday-commitment-email.jpeg" alt="n8n workflow: email commitment reconciliation against Jira baseline" loading="lazy" decoding="async"></figure>
       </div>
     </article>
 
-    <!-- CASE 05: Commercial Pipeline Extraction -->
-    <article class="case reveal">
-      <div class="case-header">
+    <!-- CS 05 -->
+    <article class="cs reveal" id="cs-climatetech" aria-labelledby="cs5-t">
+      <div class="cs-head">
+        <div class="cs-idx"><span class="ac">CS</span><br>05</div>
         <div>
-          <div class="case-num"><span class="accent">CS</span> / 005</div>
-        </div>
-        <h3>Commercial Pipeline Extraction <em>&amp; Follow-up Automation</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">n8n</span>
-          <span class="case-tag">Gmail API</span>
-          <span class="case-tag">AI Qualification</span>
-          <span class="case-tag">Google Sheets</span>
-          <span class="case-tag">WhatsApp</span>
+          <div class="cs-cat">GTM · Data Enrichment · Verification</div>
+          <h2 class="cs-title" id="cs5-t">ClimateTech Campaign — <em>Clay → HubSpot</em></h2>
+          <p class="cs-lead">A verified, launch-ready list of US ClimateTech decision-makers, built and validated end-to-end for a production API launch campaign.</p>
+          <div class="cs-tags"><span class="tag">Clay</span><span class="tag">HubSpot</span><span class="tag">Datagma</span><span class="tag">Wiza</span><span class="tag">Email validation</span></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">The brief</div>
-        <div class="content">
-          <p>Real commercial opportunities were hiding inside two shared inboxes — buried under internal chatter, automated noise, and quoted reply chains. Leadership needed a way to <em>surface every real deal, draft thoughtful follow-ups, and never let one go cold</em>.</p>
+      <div class="cs-grid">
+        <div class="cs-main">
+          <div class="cs-block"><h4>Business problem</h4><p>The GTM team needed a clean, verified list of senior US ClimateTech contacts to launch a production-grade Temperature API campaign — without wasting spend on bounced or junk emails.</p></div>
+          <div class="cs-block"><h4>Technical challenges</h4><ul>
+            <li>Multi-source email discovery and <strong>double-validation</strong> (Datagma + Wiza) to retain only verified work emails.</li>
+            <li>Filtering to exactly one senior decision-maker per company at target size (1–50 employees).</li>
+            <li>Dedup-safe export into HubSpot (create-new + update-if-exists) into a dedicated launch list.</li>
+          </ul></div>
+          <div class="cs-block"><h4>Lessons learned</h4><p>List quality beats list size. Layering two validators before export is what made the campaign deliverable — a smaller verified list outperforms a large dirty one.</p></div>
+        </div>
+        <aside class="spec" aria-label="Technical specification">
+          <div class="row"><div class="rk">Tech</div><div class="rv">Clay (enrichment tables), HubSpot</div></div>
+          <div class="row"><div class="rk">API integrations</div><div class="rv"><b>Clay</b> (find companies/people/emails), <b>Datagma</b> + <b>Wiza</b> validation, <b>HubSpot</b> export</div></div>
+          <div class="row"><div class="rk">AI components</div><div class="rv">Enrichment + filtering logic (rules-based); LLM-assisted targeting criteria</div></div>
+          <div class="row"><div class="rk">Deployment</div><div class="rv">Clay pipeline → HubSpot static list "US ClimateTech – API Launch"</div></div>
+          <div class="row"><div class="rk">Monitoring</div><div class="rv">Validation status per contact · export success tracking</div></div>
+          <div class="row"><div class="rk">Error handling</div><div class="rv">Drop "no email found" · retain work-email-only · dedup on export</div></div>
+          <div class="row"><div class="rk">Scalability</div><div class="rv">Repeatable table pipeline across industries/regions</div></div>
+        </aside>
+      </div>
+      <div class="diag-wrap">
+        <h4>Workflow</h4>
+        <div class="flow" role="img" aria-label="Workflow: Clay finds companies then people, enriches and validates emails via Datagma and Wiza, retains verified work emails, exports to a HubSpot static list.">
+          <span class="node int">Clay · find companies</span><span class="arrow">→</span><span class="node int">Find 1 senior contact</span><span class="arrow">→</span><span class="node int">Enrich email</span><span class="arrow">→</span><span class="node">Validate (Datagma + Wiza)</span><span class="arrow">→</span><span class="node">Keep verified only</span><span class="arrow">→</span><span class="node int">HubSpot launch list</span>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">What I built</div>
-        <div class="content">
-          <ul>
-            <li>An <em>extraction + qualification pipeline</em> that mines access@ and tech@ inboxes, strips noise, and uses an AI agent to score and structure each thread into a deal record</li>
-            <li>Qualified opportunities are written to a <em>central Google Sheet</em> — one row per deal, with status, owner, stage, last touch, and next action</li>
-            <li>A <em>draft-generation pass</em> loops the sheet, sends each row through an LLM that writes a Gmail follow-up draft in the right tone for the deal stage</li>
-            <li>A <em>weekly stale-deal sweep</em> identifies opportunities that have gone quiet, drafts a re-engagement message, and pings leadership on WhatsApp when human action is required</li>
-            <li>End result: an <em>always-on B2B sales pipeline</em> driven entirely from the inbox, with zero manual qualification work</li>
-          </ul>
-        </div>
-      </div>
-      <div class="workflow-img">
-        <span class="badge">● Production / 20</span>
-        <img src="workflows/20-commercial-pipeline-extraction.png" alt="Commercial Pipeline Extraction and Follow-up Automation — n8n workflow ingesting access@ and tech@ inboxes" loading="lazy" decoding="async" width="1600" height="900" />
-      </div>
-      <div class="case-impact">
-        <div>
-          <div class="impact-num">2</div>
-          <div class="impact-lbl">Shared inboxes ingested continuously</div>
-        </div>
-        <div>
-          <div class="impact-num alt">3</div>
-          <div class="impact-lbl">Pipeline stages (extract / draft / sweep)</div>
-        </div>
-        <div>
-          <div class="impact-num">100<em>%</em></div>
-          <div class="impact-lbl">AI-qualified, no manual triage</div>
-        </div>
-        <div>
-          <div class="impact-num alt">0</div>
-          <div class="impact-lbl">Deals dropped from inattention</div>
-        </div>
+      <div class="impact">
+        <div class="itile"><div class="n">2,000<em>+</em></div><div class="l">Companies identified</div></div>
+        <div class="itile alt"><div class="n">785</div><div class="l">Verified senior contacts</div></div>
+        <div class="itile"><div class="n">785</div><div class="l">Validated work emails</div></div>
+        <div class="itile alt"><div class="n">1–50</div><div class="l">Employee target range</div></div>
       </div>
     </article>
 
-    <!-- CASE 06: Email Extraction & Validation -->
-    <article class="case reveal">
-      <div class="case-header">
+    <!-- CS 06 -->
+    <article class="cs reveal" id="cs-enrichment" aria-labelledby="cs6-t">
+      <div class="cs-head">
+        <div class="cs-idx"><span class="ac">CS</span><br>06</div>
         <div>
-          <div class="case-num"><span class="accent">CS</span> / 006</div>
-        </div>
-        <h3>Historical Email Extraction <em>&amp; Validation Pipeline</em></h3>
-        <div class="case-tags">
-          <span class="case-tag">n8n</span>
-          <span class="case-tag">Gmail API</span>
-          <span class="case-tag">Batch Processing</span>
-          <span class="case-tag">HubSpot</span>
-          <span class="case-tag">NeverBounce</span>
+          <div class="cs-cat">Data Engineering · Batching · Cost Efficiency</div>
+          <h2 class="cs-title" id="cs6-t">LinkedIn Enrichment at Scale — <em>4,740 → 10 calls</em></h2>
+          <p class="cs-lead">A batched enrichment pipeline that processed 4,740 profiles in ~10 API executions instead of 4,740 — a textbook cost/throughput win, scalable to 100k+.</p>
+          <div class="cs-tags"><span class="tag">n8n</span><span class="tag">Apify</span><span class="tag">Google Sheets</span><span class="tag">Split in Batches</span></div>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">The brief</div>
-        <div class="content">
-          <p>The team needed to mine <em>15 months</em> of Gmail history to rebuild the company contact graph — every real person we'd ever emailed with, deduped, validated, and ready for outreach. Doing it in one pass would crash n8n. Doing it manually was impossible.</p>
+      <div class="cs-grid">
+        <div class="cs-main">
+          <div class="cs-block"><h4>Business problem</h4><p>4,740 LinkedIn profiles needed location/company enrichment. A naïve one-call-per-profile approach meant 4,740 slow, expensive scraper runs.</p></div>
+          <div class="cs-block"><h4>Technical challenges</h4><ul>
+            <li>Aggregating profiles into <strong>batches of 500</strong> per Apify actor call via Split-in-Batches.</li>
+            <li>Per-record edge cases — not found / private / missing URL — resolved with explicit statuses.</li>
+            <li>Batch-level retries so one failure doesn't sink the run.</li>
+          </ul></div>
+          <div class="cs-block"><h4>Lessons learned</h4><p>Batching is the cheapest performance win in automation. Always ask "can this be one call instead of N?" — here it turned 4,740 calls into ~10.</p></div>
+        </div>
+        <aside class="spec" aria-label="Technical specification">
+          <div class="row"><div class="rk">Tech</div><div class="rv">n8n (Split in Batches, Code), Google Sheets</div></div>
+          <div class="row"><div class="rk">API integrations</div><div class="rv"><b>Apify</b> batch scraper actor, <b>Google Sheets</b></div></div>
+          <div class="row"><div class="rk">AI components</div><div class="rv">— (enrichment/data pipeline; LLM scoring is a planned extension)</div></div>
+          <div class="row"><div class="rk">Deployment</div><div class="rv">Self-hosted n8n · manual/scheduled batch run</div></div>
+          <div class="row"><div class="rk">Monitoring</div><div class="rv">Per-row status + last-enriched timestamp in Sheets</div></div>
+          <div class="row"><div class="rk">Error handling</div><div class="rv">Skip missing URLs (.filter) · status "Not Found"/"Private" · batch retry</div></div>
+          <div class="row"><div class="rk">Scalability</div><div class="rv">500/batch · designed to scale to <b>100,000+</b> profiles</div></div>
+        </aside>
+      </div>
+      <div class="diag-wrap">
+        <h4>Workflow</h4>
+        <div class="flow" role="img" aria-label="Workflow: read profiles from Sheets, split into batches of 500, aggregate into one Apify call per batch, retrieve dataset, write enriched rows back to Sheets.">
+          <span class="node store">Sheets (4,740 rows)</span><span class="arrow">→</span><span class="node">Split in batches (500)</span><span class="arrow">→</span><span class="node">Aggregate usernames</span><span class="arrow">→</span><span class="node int">Apify actor (×10)</span><span class="arrow">→</span><span class="node int">Get dataset</span><span class="arrow">→</span><span class="node store">Update Sheets</span>
         </div>
       </div>
-      <div class="case-body">
-        <div class="label">What I built</div>
-        <div class="content">
-          <ul>
-            <li><em>Monthly batching strategy</em> — the workflow processes one month at a time (Jan 2025 → Mar 2026), avoiding memory crashes and giving clean checkpoints to debug</li>
-            <li>Extracts every email address from <em>From / To / CC / BCC / headers / body</em> for maximum coverage</li>
-            <li>A <em>blacklist + pattern engine</em> drops noreply, mailer-daemon, UUID aliases, system traffic from HubSpot/Atlassian/Mixpanel, and internal accounts</li>
-            <li>Loop + Wait nodes keep API usage under rate limits; deduplication runs across the full corpus before any contact is committed</li>
-            <li>Clean contacts land in Google Sheets, get upserted into HubSpot, then validated through <em>NeverBounce</em> so only deliverable addresses make it into campaigns</li>
-          </ul>
-        </div>
-      </div>
-      <div class="case-impact">
-        <div>
-          <div class="impact-num">15</div>
-          <div class="impact-lbl">Months of Gmail history processed</div>
-        </div>
-        <div>
-          <div class="impact-num alt">1</div>
-          <div class="impact-lbl">Month batched per execution</div>
-        </div>
-        <div>
-          <div class="impact-num">3</div>
-          <div class="impact-lbl">Cleaning layers (blacklist / pattern / dedup)</div>
-        </div>
-        <div>
-          <div class="impact-num alt">100<em>%</em></div>
-          <div class="impact-lbl">Validated via NeverBounce before send</div>
-        </div>
+      <div class="impact">
+        <div class="itile"><div class="n">4,740</div><div class="l">Profiles enriched</div></div>
+        <div class="itile alt"><div class="n">10</div><div class="l">API executions (from 4,740)</div></div>
+        <div class="itile"><div class="n">500</div><div class="l">Records per batch</div></div>
+        <div class="itile alt"><div class="n">100k<em>+</em></div><div class="l">Designed scalability</div></div>
       </div>
     </article>
 
   </div>
 </section>
 
-<!-- ALL WORKFLOWS GALLERY -->
-<section id="gallery">
+<!-- WORKFLOW INDEX -->
+<section id="index" aria-labelledby="idx-t">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-num">[03]<span class="dot"> /</span> Workflow Index</div>
-      <h2 class="section-title">Every <em>workflow</em>, shipped.</h2>
+    <div class="sec-head reveal">
+      <div class="sec-num">[03]<span class="dot"> /</span> Workflow Index</div>
+      <div>
+        <h2 class="sec-title" id="idx-t">More <em>shipped</em> automation.</h2>
+        <p class="sec-intro">A selection from 40+ production workflows across outbound, CRM, onboarding, analytics, and content operations.</p>
+      </div>
     </div>
-    <div class="gallery reveal-stagger">
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/01-linkedin-post-scraping.jpeg" alt="LinkedIn post scraping automation" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">LinkedIn Automation</div>
-          <h4>AI-Powered LinkedIn Post <em>Scraping Engine</em></h4>
-          <div class="card-desc">Five parallel scraping pipelines monitoring target lists for new posts to engage with.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/02-linkedin-comment-engine.jpeg" alt="LinkedIn comment automation" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI + LinkedIn</div>
-          <h4>LinkedIn Comment <em>Automation Engine</em></h4>
-          <div class="card-desc">AI-generated human-tone comments with behavioral delays and reply detection.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/06-fg-linkedin-outreach-dm.jpeg" alt="LinkedIn DM outreach automation" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI + Outreach</div>
-          <h4>High-Leads <em>DM Outreach Agent</em></h4>
-          <div class="card-desc">AI Agent + Unipile API for personalized direct message outreach at scale.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/08-whatsapp-business-card-agent.jpeg" alt="WhatsApp business card AI agent" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI + CRM</div>
-          <h4>WhatsApp Business Card <em>Agent</em></h4>
-          <div class="card-desc">OCR + LLM pipeline turning card photos into HubSpot contacts in under a minute.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/10-monday-briefing-ingestion.jpeg" alt="Monday briefing ingestion" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">Internal Ops</div>
-          <h4>Monday Briefing <em>Ingestion Report</em></h4>
-          <div class="card-desc">Jira tickets → AI agent → structured weekly report for SD and ML teams.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/09-monday-commitment-email.jpeg" alt="Monday commitment email reconciliation" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Internal Ops</div>
-          <h4>Commitment Email <em>Reconciliation</em></h4>
-          <div class="card-desc">Parses inbox replies and matches commitments against the Monday briefing baseline.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/14-midweek-drift-detection.jpeg" alt="Midweek drift detection" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Internal Ops</div>
-          <h4>Midweek <em>Drift Detection</em></h4>
-          <div class="card-desc">Detects scope creep, task changes, and risk shifts between Monday and Wednesday.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/11-friday-transcript-report.jpeg" alt="Friday debrief transcript report" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI Reporting</div>
-          <h4>Friday Debrief <em>Transcript Report</em></h4>
-          <div class="card-desc">LLM normalizes raw debrief transcripts into structured HTML reports for leadership.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/12-friday-debrief-sd-team.jpeg" alt="Friday debrief SD team report" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Internal Ops</div>
-          <h4>Friday Debrief <em>— SD Team</em></h4>
-          <div class="card-desc">Team-specific drift scoring and hierarchy report for Software Development.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/13-friday-debrief-ml-team.jpeg" alt="Friday debrief ML team report" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Internal Ops</div>
-          <h4>Friday Debrief <em>— ML Team</em></h4>
-          <div class="card-desc">Mirrored pipeline tuned for ML team workflows and risk classifications.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/07-sd-ml-debrief-briefing-transcript.jpeg" alt="SD and ML debrief briefing transcript" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Internal Ops</div>
-          <h4>Debrief + Briefing <em>Transcript Pipeline</em></h4>
-          <div class="card-desc">Dual-track normalization for SD and ML with split logic and parallel sheet outputs.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/15-weekly-engagement-report.jpeg" alt="Weekly user engagement report" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Analytics</div>
-          <h4>Weekly User <em>Engagement Report</em></h4>
-          <div class="card-desc">Firebase + Clarity tracking aggregated into automated weekly engagement digests.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/18-hubspot-ai-segmentation.jpeg" alt="HubSpot AI contact segmentation" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI + CRM</div>
-          <h4>HubSpot AI <em>Contact Segmentation</em></h4>
-          <div class="card-desc">Domain-grouped contact enrichment + LLM-driven category classification.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/03-scraping-filter-following.jpeg" alt="LinkedIn following list scraping and filtering" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">LinkedIn + AI</div>
-          <h4>Following List <em>Scrape & Filter</em></h4>
-          <div class="card-desc">Pulls connection following data and runs AI-based filtering on relevance signals.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/05-filter-following-pages.jpeg" alt="Filter following pages list" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">LinkedIn + AI</div>
-          <h4>Following Pages <em>AI Filter</em></h4>
-          <div class="card-desc">AI Agent with structured output classifies and ranks followed company pages.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/19-linkedin-connection-list.jpeg" alt="LinkedIn connection list scraper" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">LinkedIn</div>
-          <h4>Connection List <em>Extractor</em></h4>
-          <div class="card-desc">Pulls full connection list via Unipile API into Google Sheets with deduplication.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/04-followup-email-newsletter.jpeg" alt="Newsletter follow-up email automation" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Email Automation</div>
-          <h4>Newsletter <em>Follow-Up</em></h4>
-          <div class="card-desc">Scheduled follow-up emails with draft logic and status updates back to source sheet.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/16-automation-newsletter.jpeg" alt="Newsletter signup automation" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Email Automation</div>
-          <h4>Newsletter <em>Signup Funnel</em></h4>
-          <div class="card-desc">Webhook-triggered contact upsert + welcome email pipeline for the site.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/17-tracking-link-competition.jpeg" alt="Tracking link competition workflow" loading="lazy" decoding="async" width="1600" height="900" />
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Analytics</div>
-          <h4>Tracking Link <em>Competition Scoring</em></h4>
-          <div class="card-desc">Mixpanel data ingestion with per-user scoring and conditional sheet routing.</div>
-        </div>
-      </div>
-
-      <!-- NEW: Commercial Pipeline Extraction -->
-      <div class="card">
-        <div class="img-wrap">
-          <img src="workflows/20-commercial-pipeline-extraction.png" alt="Commercial Pipeline Extraction n8n workflow" loading="lazy" decoding="async" width="1600" height="900" />
-          <span class="status">Live</span>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI + Sales</div>
-          <h4>Commercial Pipeline <em>Extraction</em></h4>
-          <div class="card-desc">Inbox → AI qualification → structured deal sheet, with auto-drafted Gmail follow-ups and WhatsApp alerts on stale deals.</div>
-        </div>
-      </div>
-
-      <!-- NEW: Email Extraction & Validation -->
-      <div class="card">
-        <div class="img-wrap">
-          <div class="img-placeholder">
-            <span class="ph-tag">● Gmail / NeverBounce</span>
-            <span class="ph-icon">Inbox<span class="accent">.</span></span>
-          </div>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Data Pipeline</div>
-          <h4>Historical Email <em>Extraction &amp; Validation</em></h4>
-          <div class="card-desc">15 months of Gmail mined in monthly batches, cleaned, deduplicated, pushed to HubSpot, and validated with NeverBounce.</div>
-        </div>
-      </div>
-
-      <!-- NEW: Instantly → HubSpot with domain branching -->
-      <div class="card">
-        <div class="img-wrap">
-          <div class="img-placeholder">
-            <span class="ph-tag">● Webhook / HubSpot</span>
-            <span class="ph-icon">Route<span class="accent">.</span></span>
-          </div>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI + CRM</div>
-          <h4>Instantly → HubSpot <em>Smart Routing</em></h4>
-          <div class="card-desc">Webhook lead intake with domain-type branching — business domains run AI segmentation, personal domains skip it. Fewer wasted LLM calls.</div>
-        </div>
-      </div>
-
-      <!-- NEW: ML Midweek Report -->
-      <div class="card">
-        <div class="img-wrap">
-          <div class="img-placeholder">
-            <span class="ph-tag">● Jira / Sheets / AI</span>
-            <span class="ph-icon">ML<span class="accent">.</span></span>
-          </div>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Internal Ops</div>
-          <h4>ML Midweek <em>Report</em></h4>
-          <div class="card-desc">Built from scratch for the ML team's distinct Jira structure: scorecards → activities → milestones → tasks, with drift detection and approval tracking.</div>
-        </div>
-      </div>
-
-      <!-- NEW: Monday Briefing Ingestion -->
-      <div class="card">
-        <div class="img-wrap">
-          <div class="img-placeholder">
-            <span class="ph-tag">● Jira / AI Agent</span>
-            <span class="ph-icon">Brief<span class="accent">.</span></span>
-          </div>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat ai">AI + Reporting</div>
-          <h4>Monday Briefing <em>→ Structured Output</em></h4>
-          <div class="card-desc">Consumes extracted transcript + Jira snapshot for SD and ML, identifies commitments, decisions, and gaps, then emails Jay automatically.</div>
-        </div>
-      </div>
-
-      <!-- NEW: ClimateTech US Campaign -->
-      <div class="card">
-        <div class="img-wrap">
-          <div class="img-placeholder">
-            <span class="ph-tag">● Clay / HubSpot</span>
-            <span class="ph-icon">USA<span class="accent">.</span></span>
-          </div>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Lead Sourcing</div>
-          <h4>ClimateTech US <em>Startup Campaign</em></h4>
-          <div class="card-desc">Clay-sourced list of 2,000+ US climate companies → 785 verified C-level contacts, enriched and pushed into HubSpot for the API launch.</div>
-        </div>
-      </div>
-
-      <!-- NEW: Referral Competition -->
-      <div class="card">
-        <div class="img-wrap">
-          <div class="img-placeholder">
-            <span class="ph-tag">● Mixpanel / Sheets</span>
-            <span class="ph-icon">Score<span class="accent">.</span></span>
-          </div>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Analytics</div>
-          <h4>Referral Competition <em>Engine</em></h4>
-          <div class="card-desc">Daily Mixpanel-driven scoring with idempotent rules, automatic user closure after 11 points or 7 days, and a weekly leaderboard email.</div>
-        </div>
-      </div>
-
-      <!-- NEW: FG BD Ops 2026 Jira plan -->
-      <div class="card">
-        <div class="img-wrap">
-          <div class="img-placeholder">
-            <span class="ph-tag">● Jira / n8n / Design</span>
-            <span class="ph-icon">Ops<span class="accent">.</span></span>
-          </div>
-        </div>
-        <div class="card-meta">
-          <div class="card-cat">Systems Design</div>
-          <h4>FG BD Ops 2026 <em>Jira Migration</em></h4>
-          <div class="card-desc">End-to-end plan to move the 2026 operational playbook (KPIs, themes, initiatives, milestones, risks) into Jira with automated dashboards and digests.</div>
-        </div>
-      </div>
-
+    <div class="gal reveal">
+      <article class="card"><div class="imgw"><img src="workflows/19-linkedin-connection-list.jpeg" alt="Connection list extraction workflow" loading="lazy" decoding="async"></div><div class="body"><div class="cat">LinkedIn · Data</div><h4>Connection List Extractor</h4><p>Pulls full connection lists via Unipile into Google Sheets with deduplication.</p><div class="mtags"><span>n8n</span><span>Unipile</span><span>Sheets</span></div></div></article>
+      <article class="card"><div class="imgw"><img src="workflows/03-scraping-filter-following.jpeg" alt="Following list scrape and AI filter workflow" loading="lazy" decoding="async"></div><div class="body"><div class="cat ai">LinkedIn + AI</div><h4>Following List Scrape &amp; AI Filter</h4><p>Scrapes followed accounts and ranks relevance with an AI agent + structured output.</p><div class="mtags"><span>Apify</span><span>Bedrock</span><span>Structured output</span></div></div></article>
+      <article class="card"><div class="imgw"><img src="workflows/20-commercial-pipeline-extraction.png" alt="Commercial pipeline extraction workflow" loading="lazy" decoding="async"></div><div class="body"><div class="cat ai">Sales Ops + AI</div><h4>Commercial Pipeline Extraction</h4><p>Mines shared inboxes, AI-qualifies B2B deals, drafts follow-ups, alerts on stale deals via WhatsApp.</p><div class="mtags"><span>Gmail</span><span>AI qualify</span><span>WhatsApp</span></div><div class="metric">Human-in-the-loop · &gt;7-day stale detection</div></div></article>
+      <article class="card"><div class="imgw"><div class="ph"><span class="pi">Historical Email Extraction</span><span class="pt">screenshot coming</span></div></div><div class="body"><div class="cat">Data · Validation</div><h4>Email Extraction &amp; Validation</h4><p>15 months of Gmail history processed in monthly batches → dedup → HubSpot → NeverBounce validation.</p><div class="mtags"><span>Gmail</span><span>HubSpot</span><span>NeverBounce</span></div><div class="metric">15 months · memory-safe batching</div></div></article>
+      <article class="card"><div class="imgw"><div class="ph"><span class="pi">Candidate Onboarding</span><span class="pt">screenshot coming</span></div></div><div class="body"><div class="cat">Ops · Provisioning</div><h4>Candidate Onboarding &amp; API Keys</h4><p>Two-phase onboarding with webhook-gated, secure API-key provisioning after candidate action.</p><div class="mtags"><span>Sheets</span><span>Gmail</span><span>Webhooks</span></div><div class="metric">~1,300 candidates processed</div></div></article>
+      <article class="card"><div class="imgw"><div class="ph"><span class="pi">Onboarding Personalization</span><span class="pt">screenshot coming</span></div></div><div class="body"><div class="cat ai">Onboarding + AI</div><h4>Industry Personalization</h4><p>Form → AI generates industry-specific onboarding content (Bedrock) → email + Brevo CRM sync.</p><div class="mtags"><span>Bedrock</span><span>Brevo</span><span>Webhook</span></div></div></article>
+      <article class="card"><div class="imgw"><img src="workflows/15-weekly-engagement-report.jpeg" alt="Weekly engagement report workflow" loading="lazy" decoding="async"></div><div class="body"><div class="cat">Analytics</div><h4>Weekly Engagement Report</h4><p>Microsoft Clarity + Firebase aggregated into a branded HTML digest, delivered every Monday.</p><div class="mtags"><span>Clarity</span><span>Firebase</span><span>Gmail</span></div></div></article>
+      <article class="card"><div class="imgw"><img src="workflows/17-tracking-link-competition.jpeg" alt="Referral competition scoring workflow" loading="lazy" decoding="async"></div><div class="body"><div class="cat">Growth</div><h4>Referral Competition Engine</h4><p>Mixpanel events → idempotent per-user scoring → weekly leaderboard email.</p><div class="mtags"><span>Mixpanel</span><span>Sheets</span><span>Idempotent</span></div><div class="metric">11-pt cap · 7-day window</div></div></article>
+      <article class="card"><div class="imgw"><div class="ph"><span class="pi">LinkedIn Company Intel</span><span class="pt">screenshot coming</span></div></div><div class="body"><div class="cat ai">Research + AI</div><h4>Company Intelligence &amp; Filtering</h4><p>Scrapes company pages (Apify), AI-filters by relevance, builds a qualified target database.</p><div class="mtags"><span>Apify</span><span>Bedrock</span><span>Structured output</span></div></div></article>
+      <article class="card"><div class="imgw"><div class="ph"><span class="pi">Instagram Publishing</span><span class="pt">screenshot coming</span></div></div><div class="body"><div class="cat">Content Ops</div><h4>Instagram Content Publishing</h4><p>Sheet calendar → Drive assets → Supabase hosting → Graph API publish (image/video/carousel) → cleanup.</p><div class="mtags"><span>Graph API</span><span>Supabase</span><span>Drive</span></div></div></article>
+      <article class="card"><div class="imgw"><img src="workflows/04-followup-email-newsletter.jpeg" alt="Daily follow-up email workflow" loading="lazy" decoding="async"></div><div class="body"><div class="cat">Email Automation</div><h4>Daily Follow-Up Sender</h4><p>Sends a capped 20 emails/day with pacing and status tracking to prevent double-sends.</p><div class="mtags"><span>Gmail</span><span>Sheets</span><span>Rate-limited</span></div><div class="metric">20/day · 60–120s delay</div></div></article>
+      <article class="card"><div class="imgw"><img src="workflows/16-automation-newsletter.jpeg" alt="Newsletter signup workflow" loading="lazy" decoding="async"></div><div class="body"><div class="cat">Lifecycle</div><h4>Newsletter Signup Funnel</h4><p>Webflow popup → webhook → HubSpot upsert + list add → welcome email.</p><div class="mtags"><span>Webhook</span><span>HubSpot</span><span>SMTP</span></div></div></article>
     </div>
   </div>
 </section>
 
 <!-- TECH STACK -->
-<section id="stack">
+<section id="stack" aria-labelledby="stack-t">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-num">[04]<span class="dot"> /</span> Stack</div>
-      <h2 class="section-title">Tools <em>I reach for.</em></h2>
+    <div class="sec-head reveal">
+      <div class="sec-num">[04]<span class="dot"> /</span> Stack</div>
+      <div><h2 class="sec-title" id="stack-t">Tools I <em>reach for.</em></h2></div>
     </div>
-    <div class="stack-grid reveal">
-      <div class="stack-cell">
-        <div class="cat">Automation</div>
-        <h4>Workflow <em>Orchestration</em></h4>
-        <ul>
-          <li>n8n</li>
-          <li>UiPath</li>
-          <li>Power Automate</li>
-          <li>Apify</li>
-        </ul>
+    <div class="stack reveal">
+      <div class="cell"><div class="k">Automation</div><h4>Orchestration</h4><ul><li>n8n (self-hosted)</li><li>Webhooks / Cron</li><li>Apify</li><li>UiPath · Power Automate</li></ul></div>
+      <div class="cell"><div class="k">AI / LLMs</div><h4>Intelligence <em>layer</em></h4><ul><li>AWS Bedrock</li><li>Azure OpenAI (GPT-4o)</li><li>AI Agents · Structured Output</li><li>Google Vision OCR</li></ul></div>
+      <div class="cell"><div class="k">Code</div><h4>Scripting <em>&amp; logic</em></h4><ul><li>Python</li><li>JavaScript / Node</li><li>SQL</li><li>Shell</li></ul></div>
+      <div class="cell"><div class="k">Integration</div><h4>APIs <em>&amp; data</em></h4><ul><li>REST APIs · OAuth2</li><li>Webhooks · JSON schema</li><li>ETL pipelines</li><li>Unipile</li></ul></div>
+      <div class="cell"><div class="k">Platforms</div><h4>SaaS I <em>integrate</em></h4><ul><li>HubSpot · Brevo</li><li>Jira</li><li>Gmail / Workspace</li><li>Mixpanel · Clarity · Firebase</li></ul></div>
+      <div class="cell"><div class="k">Channels</div><h4>Comms <em>APIs</em></h4><ul><li>WhatsApp Business</li><li>LinkedIn / Unipile</li><li>Instagram Graph API</li><li>SMTP / IMAP</li></ul></div>
+      <div class="cell"><div class="k">Cloud</div><h4>Infrastructure</h4><ul><li>AWS · Google Cloud</li><li>Supabase · Firebase</li><li>VPS / self-hosting</li><li>NeverBounce · Clay</li></ul></div>
+      <div class="cell"><div class="k">Reliability</div><h4>Production <em>practices</em></h4><ul><li>Error handling · retries</li><li>Rate limiting · idempotency</li><li>Validation · deduplication</li><li>Monitoring · logging</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" aria-labelledby="proc-t">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-num">[05]<span class="dot"> /</span> How I Build</div>
+      <div>
+        <h2 class="sec-title" id="proc-t">Reliability is <em>the feature.</em></h2>
+        <p class="sec-intro">The same engineering discipline goes into every workflow — because the ones that matter run unattended.</p>
       </div>
-      <div class="stack-cell">
-        <div class="cat">AI / LLMs</div>
-        <h4>Intelligence <em>Layer</em></h4>
-        <ul>
-          <li>AWS Bedrock</li>
-          <li>AI Agents</li>
-          <li>Structured Output</li>
-          <li>Google Vision OCR</li>
-        </ul>
-      </div>
-      <div class="stack-cell">
-        <div class="cat">Code</div>
-        <h4>Scripting <em>& Logic</em></h4>
-        <ul>
-          <li>Python</li>
-          <li>JavaScript / Node</li>
-          <li>SQL</li>
-          <li>Shell</li>
-        </ul>
-      </div>
-      <div class="stack-cell">
-        <div class="cat">Integration</div>
-        <h4>APIs <em>& Data</em></h4>
-        <ul>
-          <li>REST APIs</li>
-          <li>Webhooks</li>
-          <li>JSON / Schema</li>
-          <li>ETL Pipelines</li>
-        </ul>
-      </div>
-      <div class="stack-cell">
-        <div class="cat">Cloud</div>
-        <h4>Infrastructure</h4>
-        <ul>
-          <li>AWS</li>
-          <li>Google Cloud</li>
-          <li>Firebase</li>
-          <li>Serverless</li>
-        </ul>
-      </div>
-      <div class="stack-cell">
-        <div class="cat">Platforms</div>
-        <h4>SaaS <em>I integrate</em></h4>
-        <ul>
-          <li>HubSpot</li>
-          <li>Jira</li>
-          <li>Gmail / Workspace</li>
-          <li>Mixpanel</li>
-          <li>Clay</li>
-          <li>NeverBounce</li>
-          <li>Microsoft Clarity</li>
-          <li>Webflow</li>
-        </ul>
-      </div>
-      <div class="stack-cell">
-        <div class="cat">Channels</div>
-        <h4>Comms <em>APIs</em></h4>
-        <ul>
-          <li>WhatsApp Business</li>
-          <li>LinkedIn / Unipile</li>
-          <li>Gmail API</li>
-          <li>SMTP / IMAP</li>
-        </ul>
-      </div>
-      <div class="stack-cell">
-        <div class="cat">Reliability</div>
-        <h4>Production <em>practices</em></h4>
-        <ul>
-          <li>Error Handling</li>
-          <li>Retry Logic</li>
-          <li>Data Validation</li>
-          <li>Monitoring</li>
-        </ul>
-      </div>
+    </div>
+    <div class="proc reveal">
+      <div class="step"><div class="no">01</div><h4>Map the failure modes</h4><p>Before building, I list what breaks: rate limits, malformed LLM output, duplicate triggers, missing data, silent failures — then design for each.</p></div>
+      <div class="step"><div class="no">02</div><h4>Make it idempotent</h4><p>Append-or-update by unique key, <code>Math.max</code> merges, preserved terminal states — so any workflow is safe to re-run at the worst moment.</p></div>
+      <div class="step"><div class="no">03</div><h4>Constrain the AI</h4><p>Structured output parsers, strict JSON schemas, fallbacks, and token budgets keep LLM steps reliable and cheap — not a coin flip.</p></div>
+      <div class="step"><div class="no">04</div><h4>Keep humans in the loop</h4><p>Drafts instead of auto-send, WhatsApp alerts on stale deals, approval queues — a person stays in the loop exactly where judgment matters.</p></div>
     </div>
   </div>
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience">
+<section id="experience" aria-labelledby="exp-t">
   <div class="wrap">
-    <div class="section-head reveal">
-      <div class="section-num">[05]<span class="dot"> /</span> Experience</div>
-      <h2 class="section-title">Where I've <em>shipped.</em></h2>
+    <div class="sec-head reveal">
+      <div class="sec-num">[06]<span class="dot"> /</span> Experience</div>
+      <div><h2 class="sec-title" id="exp-t">Where I've <em>shipped.</em></h2></div>
     </div>
-    <div class="exp-list reveal">
-      <div class="exp-row">
-        <div class="exp-period">2025<span class="now"> — Present</span></div>
-        <div class="exp-main">
-          <h4>FortyGuard <em>— USA</em></h4>
-          <div class="role">AI Automation Engineer</div>
-        </div>
-        <div class="exp-desc">
-          Design and run production AI + automation workflows in n8n: LinkedIn lead-gen at 2k+ comments/week, internal reporting for SD &amp; ML teams, and CRM pipelines end-to-end. <strong>Cut manual data handling by 60%+</strong> across the operation.
-        </div>
+    <div class="exp reveal">
+      <div class="row">
+        <div class="per">2025<span class="now"> — Present</span></div>
+        <div><h4>FortyGuard <em>— USA</em></h4><div class="role">AI Automation Engineer</div></div>
+        <div class="d">Design and operate the company's automation platform on self-hosted n8n — <strong>40+ production workflows</strong> across lead generation, CRM pipelines, and executive reporting. <strong>Cut manual operational overhead ~60%.</strong></div>
       </div>
-      <div class="exp-row">
-        <div class="exp-period">2024 — 2025</div>
-        <div class="exp-main">
-          <h4>Elex <em>— KSA</em></h4>
-          <div class="role">AI Automation Engineer</div>
-        </div>
-        <div class="exp-desc">
-          Built automated data workflows connecting internal systems and the corporate website — replacing recurring manual operations with scheduled, alert-driven pipelines. Owned monitoring and reliability around critical data flows.
-        </div>
+      <div class="row">
+        <div class="per">2024 — 2025</div>
+        <div><h4>Elex <em>— KSA</em></h4><div class="role">AI Automation Engineer</div></div>
+        <div class="d">Built scheduled, alert-driven data automation pipelines connecting internal systems with the corporate website; SQL- and script-based automations for backup, validation, and recovery with real-time monitoring.</div>
       </div>
-      <div class="exp-row">
-        <div class="exp-period">2024</div>
-        <div class="exp-main">
-          <h4>Sama International <em>College</em></h4>
-          <div class="role">IT Specialist</div>
-        </div>
-        <div class="exp-desc">
-          IT support and infrastructure management for 50+ daily users. <strong>Reduced downtime by 25%</strong> through preventive maintenance and automation scripts.
-        </div>
+      <div class="row">
+        <div class="per">2024</div>
+        <div><h4>Sama International <em>College</em></h4><div class="role">IT Specialist</div></div>
+        <div class="d">Supported <strong>50+ daily users</strong>; introduced preventive maintenance and Python automation scripts, <strong>reducing downtime 25%.</strong></div>
       </div>
-      <div class="exp-row">
-        <div class="exp-period">2020 — 2024</div>
-        <div class="exp-main">
-          <h4>October 6th <em>University</em></h4>
-          <div class="role">B.Sc. Computer Science &amp; Information Systems</div>
-        </div>
-        <div class="exp-desc">
-          Bachelor's degree with focus on systems, databases, and applied software engineering.
-        </div>
+      <div class="row">
+        <div class="per">2020 — 2024</div>
+        <div><h4>October 6th <em>University</em></h4><div class="role">B.Sc. Computer Science &amp; Information Systems</div></div>
+        <div class="d">Bachelor's degree with a focus on systems, databases, and applied software engineering.</div>
       </div>
     </div>
   </div>
 </section>
 
+</main>
+
 <!-- CONTACT -->
-<section id="contact" class="contact">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="section-num" style="margin-bottom: 32px;">[06]<span class="dot"> /</span> Contact</div>
-      <h2 class="contact-title">Let's automate <em>something hard.</em></h2>
-      <p style="font-size: 20px; color: var(--cream-soft); max-width: 640px; font-weight: 300; line-height: 1.5;">
-        If you have a manual process that's eating hours every week — or an AI workflow you're not sure how to wire together — I'd love to talk.
-      </p>
-      <div class="contact-grid">
-        <div class="contact-block">
-          <div class="lbl">Email</div>
-          <a href="mailto:mostafa3001mohamed@gmail.com">mostafa3001mohamed<em>@gmail.com</em></a>
-        </div>
-        <div class="contact-block">
-          <div class="lbl">Phone</div>
-          <a href="tel:+201025390511">+20 102 539 <em>0511</em></a>
-        </div>
-        <div class="contact-block">
-          <div class="lbl">LinkedIn</div>
-          <a href="https://www.linkedin.com/in/mustafa-hamdy-87479b243" target="_blank" rel="noopener">linkedin.com/in/<em>mustafa-hamdy</em></a>
-        </div>
-        <div class="contact-block">
-          <div class="lbl">GitHub</div>
-          <a href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">github.com/<em>Mostafa3001hamdy</em></a>
-        </div>
-      </div>
+<section id="contact" class="contact" aria-labelledby="c-t">
+  <div class="wrap reveal">
+    <div class="sec-num" style="margin-bottom:30px">[07]<span class="dot"> /</span> Contact</div>
+    <h2 id="c-t">Let's automate <em>something hard.</em></h2>
+    <p class="sub">If you have a manual process eating hours every week — or an AI workflow you're not sure how to wire together — I'd like to talk. Open to AI Automation / AI Engineer / Integration roles, remote-first.</p>
+    <div class="cgrid">
+      <div class="cblock"><div class="l">Email</div><a href="mailto:mostafa3001mohamed@gmail.com">mostafa3001mohamed<em>@gmail.com</em></a></div>
+      <div class="cblock"><div class="l">LinkedIn</div><a href="https://www.linkedin.com/in/mustafa-hamdy-87479b243" target="_blank" rel="noopener">in/<em>mustafa-hamdy</em></a></div>
+      <div class="cblock"><div class="l">GitHub</div><a href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">@<em>Mostafa3001hamdy</em></a></div>
+      <div class="cblock"><div class="l">Résumé</div><a href="Mustafa-Hamdy-CV.pdf" download>Download <em>CV (PDF)</em></a></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div>© 2026 / Mustafa Hamdy — AI Automation Engineer</div>
+    <div>© <span id="yr">2026</span> · Mustafa Hamdy — AI Automation Engineer</div>
     <div>Built with <span class="heart">●</span> n8n, AI &amp; care</div>
   </div>
 </footer>
 
 <script>
-  // Intersection observer for reveal animations
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px 80px 0px' });
-
-  const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
-  revealEls.forEach(el => io.observe(el));
-
-  // Safety net: after 1.5s, force-reveal anything that's still hidden.
-  // Some mobile browsers (or fast scrolls) miss the observer fire entirely.
-  setTimeout(() => {
-    revealEls.forEach(el => el.classList.add('in'));
-  }, 1500);
-
-  // Smooth subtle parallax on hero (skip on mobile to save perf)
-  const hero = document.querySelector('.hero h1');
-  if (hero && window.innerWidth > 768) {
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      if (y < 800) {
-        hero.style.transform = `translateY(${y * 0.08}px)`;
-        hero.style.opacity = String(Math.max(0, 1 - y / 600));
-      }
-    }, { passive: true });
-  }
+  // year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  // mobile nav
+  var tgl=document.querySelector('.nav-toggle'), lnk=document.getElementById('navlinks');
+  if(tgl){tgl.addEventListener('click',function(){var o=lnk.classList.toggle('open');tgl.setAttribute('aria-expanded',o)});
+    lnk.addEventListener('click',function(e){if(e.target.tagName==='A'){lnk.classList.remove('open');tgl.setAttribute('aria-expanded',false)}});}
+  // reveal on scroll (respects reduced motion + no-JS)
+  var rm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if(rm || !('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});}
+  else{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});els.forEach(function(e){io.observe(e)});}
 </script>
-
 </body>
 </html>
