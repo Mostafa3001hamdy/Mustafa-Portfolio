@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>LinkedIn Lead Engagement Engine — Case Study — Mustafa Hamdy</title>
-<meta name="description" content="Case study: a multi-workflow AI LinkedIn engagement engine — architecture, reliability engineering, and measured impact." />
+<title>LinkedIn AI Lead Engagement — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: a multi-workflow AI LinkedIn engagement engine — architecture, reliability engineering, screenshots, and measured impact." />
 <meta name="theme-color" content="#0b0a09" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
     <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
     <ul>
       <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
-      <li class="hide-sm"><a class="link" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a></li>
+      <li class="hide-sm"><a class="link" href="../index.html#contact">Contact</a></li>
       <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
     </ul>
   </div>
@@ -30,12 +30,12 @@
   <div class="wrap">
     <a class="back" href="../index.html#work">← All work</a>
     <div class="cshero">
-      <div class="eyebrow" style="margin-bottom:16px">Case Study 01 <span class="dot">/</span> AI Agents · Outbound</div>
-      <h1>AI LinkedIn Lead <em>Engagement Engine</em></h1>
+      <div class="eyebrow" style="margin-bottom:16px">Case Study <span class="dot">/</span> AI Agents · Outbound</div>
+      <h1>LinkedIn AI <em>Lead Engagement</em></h1>
       <p class="sub">A multi-workflow system that scales founder-led LinkedIn engagement across hundreds of prospects — acting human, staying safe, and turning passive engagement into pipeline.</p>
       <div class="actions">
-        <a class="btn ghost" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a>
         <a class="btn ghost" href="../index.html#work">More case studies</a>
+        <a class="btn ghost" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a>
       </div>
     </div>
     <div class="hero-shot"><img src="../workflows/01-linkedin-post-scraping.jpeg" alt="n8n workflow: five parallel LinkedIn post-scraping engines feeding Google Sheets"></div>
@@ -53,12 +53,17 @@
 
     <div class="cbody">
       <div class="block">
-        <h2><span class="n">01</span>The problem</h2>
+        <h2><span class="n">01</span>Overview</h2>
+        <p>An always-on engagement engine that monitors target LinkedIn profiles, generates human-tone AI comments, posts them safely, and escalates warm replies into a personalized DM outreach agent — turning passive scrolling into a measurable outbound pipeline, with no daily human effort.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Business problem</h2>
         <p>FortyGuard needed to scale founder-led outreach to hundreds of targeted prospects without burning out the team — or getting the account flagged by LinkedIn. The system had to act human, sound human, and stay within platform safety limits while engaging continuously.</p>
       </div>
 
       <div class="block">
-        <h2><span class="n">02</span>Architecture</h2>
+        <h2><span class="n">03</span>Architecture</h2>
         <div class="diagram">
           <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
           <div class="arch" role="img" aria-label="Scheduled triggers feed five Apify scraping engines storing posts in Google Sheets; an AI layer with GPT-4o and Bedrock generates comments and qualifies leads; Unipile posts comments and DMs; status written back to Sheets.">
@@ -71,7 +76,7 @@
       </div>
 
       <div class="block">
-        <h2><span class="n">03</span>Workflow</h2>
+        <h2><span class="n">04</span>Workflow</h2>
         <div class="diagram">
           <div class="flow" role="img" aria-label="Schedule triggers Apify scraping into Sheets, GPT-4o generates a comment, Unipile posts it, reply detection routes hot leads to an AI DM agent, status written back to Sheets.">
             <span class="node trig">Schedule</span><span class="arrow">→</span><span class="node int">Apify scrape</span><span class="arrow">→</span><span class="node store">Sheets</span><span class="arrow">→</span><span class="node ai">GPT-4o comment</span><span class="arrow">→</span><span class="node int">Unipile post</span><span class="arrow">→</span><span class="node trig">Reply?</span><span class="arrow">→</span><span class="node ai">AI DM agent</span><span class="arrow">→</span><span class="node store">Status</span>
@@ -80,35 +85,59 @@
       </div>
 
       <div class="block">
-        <h2><span class="n">04</span>Integrations &amp; AI components</h2>
+        <h2><span class="n">05</span>Screenshots</h2>
+        <div class="gallery">
+          <figure><a href="../workflows/01-linkedin-post-scraping.jpeg" target="_blank" rel="noopener"><img src="../workflows/01-linkedin-post-scraping.jpeg" alt="Five parallel post-scraping engines" loading="lazy"></a><figcaption>Post scraping — 5 parallel engines</figcaption></figure>
+          <figure><a href="../workflows/02-linkedin-comment-engine.jpeg" target="_blank" rel="noopener"><img src="../workflows/02-linkedin-comment-engine.jpeg" alt="AI comment engine with Bedrock LLM chains" loading="lazy"></a><figcaption>AI comment engine (Bedrock)</figcaption></figure>
+          <figure><a href="../workflows/06-fg-linkedin-outreach-dm.jpeg" target="_blank" rel="noopener"><img src="../workflows/06-fg-linkedin-outreach-dm.jpeg" alt="AI DM outreach agent" loading="lazy"></a><figcaption>DM outreach agent (Unipile)</figcaption></figure>
+          <figure><a href="../workflows/03-scraping-filter-following.jpeg" target="_blank" rel="noopener"><img src="../workflows/03-scraping-filter-following.jpeg" alt="Following scrape and AI filter" loading="lazy"></a><figcaption>Following scrape + AI filter</figcaption></figure>
+          <figure><a href="../workflows/05-filter-following-pages.jpeg" target="_blank" rel="noopener"><img src="../workflows/05-filter-following-pages.jpeg" alt="AI agent filtering followed pages" loading="lazy"></a><figcaption>Followed-pages AI filter</figcaption></figure>
+          <figure><a href="../workflows/19-linkedin-connection-list.jpeg" target="_blank" rel="noopener"><img src="../workflows/19-linkedin-connection-list.jpeg" alt="Connection list extractor" loading="lazy"></a><figcaption>Connection list extractor (Unipile)</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>AI components</h2>
         <ul>
-          <li><b>APIs:</b> Apify (scraping), Unipile (comment + DM), Google Sheets, AWS Bedrock, Azure OpenAI.</li>
-          <li><b>AI:</b> GPT-4o persona-prompt comment generation (1–3 line, human tone, no generic praise); Bedrock DM personalization; AI Agent + Structured Output Parser for lead qualification (HIGH/MED/LOW); Simple Memory for context.</li>
+          <li>GPT-4o persona-prompt comment generation — 1–3 line, human tone, no generic praise.</li>
+          <li>AWS Bedrock chat model for DM personalization in a founder voice.</li>
+          <li>AI Agent + <b>Structured Output Parser</b> for lead qualification (HIGH / MED / LOW) with Simple Memory for context.</li>
         </ul>
       </div>
 
       <div class="block">
-        <h2><span class="n">05</span>Technical challenges</h2>
+        <h2><span class="n">07</span>Integrations</h2>
+        <ul>
+          <li><b>Apify</b> — scheduled post/profile scraping across target lists.</li>
+          <li><b>Unipile</b> — posting comments and sending DMs via the LinkedIn account.</li>
+          <li><b>Google Sheets</b> — queue, status tracking, and audit trail.</li>
+          <li><b>AWS Bedrock</b> &amp; <b>Azure OpenAI</b> — the LLM layer.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Technical challenges</h2>
         <ul>
           <li>Generating comments that read as <b>written, not generated</b> — solved with a tight persona prompt and length limits.</li>
           <li>Staying under platform radar with <b>randomized behavioral pacing</b> and controlled execution windows.</li>
-          <li>Preventing duplicate comments and double-fires across 5 daily runs via status tracking + dedup on processed IDs.</li>
+          <li>Preventing duplicate comments and double-fires across 5 daily runs via status tracking and dedup on processed IDs.</li>
           <li>Managing session/cookie auth and API rate limits reliably at scale.</li>
         </ul>
       </div>
 
       <div class="block">
-        <h2><span class="n">06</span>Reliability engineering</h2>
-        <div class="facts" style="margin:6px 0 0">
-          <div class="f"><div class="fk">Deployment</div><div class="fv">Self-hosted n8n on VPS · 5 scheduled runs/day</div></div>
-          <div class="f"><div class="fk">Monitoring</div><div class="fv">Sheets status columns as audit trail · execution logs</div></div>
-          <div class="f"><div class="fk">Error handling &amp; retries</div><div class="fv">Wait-node rate limiting · per-item looping · retry on failure</div></div>
-          <div class="f"><div class="fk">Validation &amp; scale</div><div class="fv">Comment-quality checks · dedup · 5 parallel engines, 400+ profiles</div></div>
-        </div>
+        <h2><span class="n">09</span>Reliability engineering</h2>
+        <ul>
+          <li><b>Deployment:</b> self-hosted n8n on a VPS, 5 scheduled runs/day plus event-driven reply detection.</li>
+          <li><b>Monitoring:</b> Google Sheets status columns as a per-action audit trail; n8n execution logs.</li>
+          <li><b>Error handling:</b> Wait-node rate limiting, per-item looping, retry on failure, graceful skips.</li>
+          <li><b>Validation:</b> comment-quality checks and dedup before every post.</li>
+          <li><b>Scalability:</b> 5 parallel scraping engines with per-profile queueing — built for 400+ profiles.</li>
+        </ul>
       </div>
 
       <div class="block">
-        <h2><span class="n">07</span>Impact</h2>
+        <h2><span class="n">10</span>Business impact</h2>
         <div class="itiles">
           <div class="it"><div class="n">400<em>+</em></div><div class="l">Profiles engaged</div></div>
           <div class="it alt"><div class="n">5<em>×/day</em></div><div class="l">Scheduled runs</div></div>
@@ -118,17 +147,21 @@
       </div>
 
       <div class="block">
-        <h2><span class="n">08</span>Lessons learned</h2>
+        <h2><span class="n">11</span>Lessons learned</h2>
         <p>Generation was the easy 20%. The 80% that made it production-worthy was reliability — pacing, deduplication, and safe re-runs. AI is a component; the system around it is the job.</p>
       </div>
 
-      <div class="shot-row">
-        <figure class="figshot"><img src="../workflows/02-linkedin-comment-engine.jpeg" alt="AI comment engine with Bedrock LLM chains" loading="lazy"></figure>
-        <figure class="figshot"><img src="../workflows/06-fg-linkedin-outreach-dm.jpeg" alt="AI DM outreach agent for high-qualified leads" loading="lazy"></figure>
+      <div class="block">
+        <h2><span class="n">12</span>Future improvements</h2>
+        <ul>
+          <li>A/B test comment prompts and track reply-rate per variant with an eval harness.</li>
+          <li>Move status/state from Sheets into a proper database for higher-volume runs.</li>
+          <li>Add sentiment-aware reply routing before the DM agent engages.</li>
+        </ul>
       </div>
 
       <div class="nextcase">
-        <div><div class="l">Next case</div><a href="whatsapp-business-card.html">WhatsApp → CRM Card Pipeline →</a></div>
+        <div><div class="l">Next case</div><a href="whatsapp-business-card.html">WhatsApp AI Business-Card Agent →</a></div>
         <a class="btn ghost" href="../index.html#work">All work</a>
       </div>
     </div>

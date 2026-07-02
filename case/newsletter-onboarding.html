@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Newsletter &amp; Onboarding Funnels — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: a family of webhook-driven newsletter and onboarding funnels — architecture, reliability engineering, screenshots, and measured impact." />
+<meta name="theme-color" content="#0b0a09" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#body">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
+    <ul>
+      <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
+      <li class="hide-sm"><a class="link" href="../index.html#contact">Contact</a></li>
+      <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="body">
+<section class="cstop">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All work</a>
+    <div class="cshero">
+      <div class="eyebrow" style="margin-bottom:16px">Case Study <span class="dot">/</span> Lifecycle · CRM · Growth</div>
+      <h1>Newsletter <em>&amp; Onboarding</em> Funnels</h1>
+      <p class="sub">A family of webhook-driven funnels — newsletter signup, hackathon waitlist, account-setup reminders, new-user onboarding, and paced follow-ups — that capture leads, sync CRM, and nurture them automatically.</p>
+      <div class="actions">
+        <a class="btn ghost" href="../index.html#work">More case studies</a>
+        <a class="btn ghost" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="../workflows/16-automation-newsletter.jpeg" alt="n8n workflow: newsletter signup to HubSpot with welcome email"></div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="f"><div class="fk">Role</div><div class="fv">Design, build &amp; operate</div></div>
+      <div class="f"><div class="fk">Stack</div><div class="fv">n8n · HubSpot · Brevo · Gmail · Webhooks</div></div>
+      <div class="f"><div class="fk">Type</div><div class="fv">Multiple webhook + scheduled funnels</div></div>
+      <div class="f"><div class="fk">Impact</div><div class="fv">Webhook-driven · dedup-safe</div></div>
+    </div>
+
+    <div class="cbody">
+      <div class="block">
+        <h2><span class="n">01</span>Overview</h2>
+        <p>A set of lifecycle funnels that turn form and popup submissions into CRM contacts and nurtured leads — newsletter signup, hackathon waitlist, new-user dashboard onboarding, account-setup reminders, and a paced daily follow-up sender — all dedup-safe and hands-off.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Business problem</h2>
+        <p>Leads arrived from multiple entry points (website popup, forms, dashboard signup) and were captured inconsistently, with manual follow-up and duplicate records. The team needed every entry point to reliably capture, sync, and nurture leads automatically.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Architecture</h2>
+        <div class="diagram">
+          <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+          <div class="arch" role="img" aria-label="Webhook and schedule triggers feed a capture layer that cleans and dedups by email into Sheets; contacts are synced to HubSpot and Brevo; welcome, onboarding, and paced follow-up emails are sent via Gmail.">
+            <div class="tier"><div class="tl">Triggers</div><div class="tn"><span class="node trig">Webhook (popup/forms)</span><span class="node trig">Schedule (follow-ups/reminders)</span></div></div>
+            <div class="tier"><div class="tl">Capture</div><div class="tn"><span class="node store">Clean + dedup by email</span><span class="node store">Sheets/roster</span></div></div>
+            <div class="tier"><div class="tl">Sync</div><div class="tn"><span class="node int">HubSpot upsert + list add</span><span class="node int">Brevo upsert</span></div></div>
+            <div class="tier"><div class="tl">Nurture</div><div class="tn"><span class="node int">Welcome/onboarding email (Gmail)</span><span class="node int">Paced follow-ups</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">04</span>Workflow</h2>
+        <div class="diagram">
+          <div class="flow" role="img" aria-label="Webhook captures a lead, cleans and dedups by email, upserts to HubSpot with a list add, sends a welcome email via Gmail, a scheduled paced follow-up sender runs, and status is updated.">
+            <span class="node trig">Webhook</span><span class="arrow">→</span><span class="node store">Clean + dedup by email</span><span class="arrow">→</span><span class="node int">HubSpot upsert + list</span><span class="arrow">→</span><span class="node int">Welcome email (Gmail)</span><span class="arrow">→</span><span class="node trig">Paced follow-up sender</span><span class="arrow">→</span><span class="node store">Update status</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">05</span>Screenshots</h2>
+        <div class="gallery">
+          <figure><a href="../workflows/16-automation-newsletter.jpeg" target="_blank" rel="noopener"><img src="../workflows/16-automation-newsletter.jpeg" alt="Newsletter signup to HubSpot" loading="lazy"></a><figcaption>Newsletter signup → HubSpot</figcaption></figure>
+          <figure><a href="../workflows/04-followup-email-newsletter.jpeg" target="_blank" rel="noopener"><img src="../workflows/04-followup-email-newsletter.jpeg" alt="Daily follow-up sender (paced)" loading="lazy"></a><figcaption>Daily follow-up sender (paced)</figcaption></figure>
+          <figure><a href="../workflows/27-new-user-signup.png" target="_blank" rel="noopener"><img src="../workflows/27-new-user-signup.png" alt="New-user dashboard onboarding" loading="lazy"></a><figcaption>New-user dashboard onboarding</figcaption></figure>
+          <figure><a href="../workflows/33-hackathon-waitlist.png" target="_blank" rel="noopener"><img src="../workflows/33-hackathon-waitlist.png" alt="Hackathon waitlist capture" loading="lazy"></a><figcaption>Hackathon waitlist capture</figcaption></figure>
+          <figure><a href="../workflows/32-4day-followup.png" target="_blank" rel="noopener"><img src="../workflows/32-4day-followup.png" alt="Account-setup 4-day reminder" loading="lazy"></a><figcaption>Account-setup 4-day reminder</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>AI components</h2>
+        <ul>
+          <li>None — these are deterministic lifecycle funnels; reliability and dedup matter more than generation here (AI-personalized onboarding is covered in the separate Candidate Feedback case).</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">07</span>Integrations</h2>
+        <ul>
+          <li><b>Webhooks</b> (Webflow popup + forms).</li>
+          <li><b>HubSpot</b> (upsert + static lists).</li>
+          <li><b>Brevo</b> (contact upsert).</li>
+          <li><b>Gmail/SMTP</b> (welcome + follow-up emails).</li>
+          <li><b>Google Sheets</b> (roster + status).</li>
+          <li><b>QuickChart</b> (referral QR, where used).</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Technical challenges</h2>
+        <ul>
+          <li>Dedup across many entry points (search-by-email, update-or-create) so no contact or email duplicates.</li>
+          <li>Pacing outbound (a capped 20 emails/day sender with 60–120s delays) to protect deliverability.</li>
+          <li>Status flows (Not-yet → Draft → Sent → Error) so a failure is visible, not silent.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">09</span>Reliability engineering</h2>
+        <ul>
+          <li><b>Deployment:</b> multiple self-hosted funnels — webhook-triggered captures + scheduled senders/reminders.</li>
+          <li><b>Monitoring:</b> status columns per contact across every funnel.</li>
+          <li><b>Error handling:</b> append-or-update guards prevent duplicates; Wait nodes pace sends.</li>
+          <li><b>Validation:</b> email-exists checks before CRM writes.</li>
+          <li><b>Scalability:</b> each funnel is independent and idempotent, so entry points scale without interfering.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">10</span>Business impact</h2>
+        <div class="itiles">
+          <div class="it"><div class="n">5<em>+</em></div><div class="l">Lifecycle funnels</div></div>
+          <div class="it alt"><div class="n">20<em>/day</em></div><div class="l">Paced follow-up cap</div></div>
+          <div class="it"><div class="n">0</div><div class="l">Duplicate contacts</div></div>
+          <div class="it alt"><div class="n">Auto</div><div class="l">Capture → sync → nurture</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">11</span>Lessons learned</h2>
+        <p>Idempotent, dedup-safe capture is the unglamorous foundation of lifecycle automation — get it wrong and every downstream email compounds the mess.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">12</span>Future improvements</h2>
+        <ul>
+          <li>Double opt-in for the newsletter.</li>
+          <li>A unified suppression list across funnels.</li>
+          <li>Slack alerts on capture failures.</li>
+        </ul>
+      </div>
+
+      <div class="nextcase">
+        <div><div class="l">Next case</div><a href="../index.html#work">Back to all work →</a></div>
+        <a class="btn ghost" href="../index.html#work">All work</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div>© <span id="yr">2026</span> · Mustafa Hamdy</div><div>AI Automation Engineer</div></div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

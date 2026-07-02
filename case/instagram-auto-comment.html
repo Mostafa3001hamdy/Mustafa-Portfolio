@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Instagram AI Auto-Comment — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: an agentic Instagram auto-comment engine — scrape target accounts, classify relevance with an LLM, and post an on-brand comment only when the post clears the bar." />
+<meta name="theme-color" content="#0b0a09" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#body">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
+    <ul>
+      <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
+      <li class="hide-sm"><a class="link" href="../index.html#contact">Contact</a></li>
+      <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="body">
+<section class="cstop">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All work</a>
+    <div class="cshero">
+      <div class="eyebrow" style="margin-bottom:16px">Case Study <span class="dot">/</span> AI Agents · Social</div>
+      <h1>Instagram AI <em>Auto-Comment</em></h1>
+      <p class="sub">An agentic engine that scrapes target Instagram accounts, classifies each post's relevance with an LLM, and posts a natural, on-brand comment — but only when the post clears the bar.</p>
+      <div class="actions">
+        <a class="btn ghost" href="../index.html#work">More case studies</a>
+        <a class="btn ghost" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="../workflows/25-social-autocomment-ig.png" alt="n8n workflow: Instagram AI auto-comment with a Bedrock relevance classifier and Unipile posting"></div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="f"><div class="fk">Role</div><div class="fv">Design, build &amp; operate</div></div>
+      <div class="f"><div class="fk">Stack</div><div class="fv">n8n · Apify · AWS Bedrock · Unipile</div></div>
+      <div class="f"><div class="fk">Type</div><div class="fv">Two-stage (scrape → comment)</div></div>
+      <div class="f"><div class="fk">Impact</div><div class="fv">Relevance-gated · autonomous</div></div>
+    </div>
+
+    <div class="cbody">
+      <div class="block">
+        <h2><span class="n">01</span>Overview</h2>
+        <p>A two-part system — a scraping stage that pulls the latest posts from target Instagram accounts, and a commenting stage that classifies relevance with an LLM and only drafts + posts a comment when it's genuinely relevant, with failure handling on the post step.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Business problem</h2>
+        <p>Manual social engagement doesn't scale, and blind auto-commenting looks spammy and risks the account. The system needed to engage selectively — comment only on relevant posts, in a human voice.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Architecture</h2>
+        <div class="diagram">
+          <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+          <div class="arch" role="img" aria-label="A schedule trigger feeds an Apify scrape stage that gets following and latest posts and filters new posts; an AI stage runs a relevance classifier on two AWS Bedrock chat models and a draft-comment LLM chain; the action stage posts the comment via Unipile and handles failure or marks posted.">
+            <div class="tier"><div class="tl">Triggers</div><div class="tn"><span class="node trig">Schedule</span></div></div>
+            <div class="tier"><div class="tl">Scrape stage</div><div class="tn"><span class="node int">Apify (Get Following / Latest Posts)</span><span class="node store">Filter new posts</span></div></div>
+            <div class="tier"><div class="tl">AI stage</div><div class="tn"><span class="node ai">Relevance classifier (2× AWS Bedrock chat model)</span><span class="node ai">Draft Comment LLM Chain</span></div></div>
+            <div class="tier"><div class="tl">Action</div><div class="tn"><span class="node int">Post comment (Unipile)</span><span class="node store">Handle failure / mark posted</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">04</span>Workflow</h2>
+        <div class="diagram">
+          <div class="flow" role="img" aria-label="Schedule triggers Apify to get latest posts, filter new posts, relevance classify with Bedrock, a should-comment gate, draft a comment with an LLM, post the comment via Unipile, then mark posted or handle failure.">
+            <span class="node trig">Schedule</span><span class="arrow">→</span><span class="node int">Apify get latest posts</span><span class="arrow">→</span><span class="node store">Filter new posts</span><span class="arrow">→</span><span class="node ai">Relevance classify (Bedrock)</span><span class="arrow">→</span><span class="node trig">Should comment?</span><span class="arrow">→</span><span class="node ai">Draft comment (LLM)</span><span class="arrow">→</span><span class="node int">Post comment (Unipile)</span><span class="arrow">→</span><span class="node store">Mark posted / handle failure</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">05</span>Screenshots</h2>
+        <div class="gallery solo">
+          <figure><a href="../workflows/25-social-autocomment-ig.png" target="_blank" rel="noopener"><img src="../workflows/25-social-autocomment-ig.png" alt="n8n workflow: Instagram AI auto-comment with a Bedrock relevance classifier and Unipile posting" loading="lazy"></a><figcaption>Instagram scrape → relevance classify → comment</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>AI components</h2>
+        <ul>
+          <li>Relevance classification with AWS Bedrock chat models (decides whether a post is worth engaging).</li>
+          <li>An LLM chain drafts a natural, contextual comment.</li>
+          <li>A should-post gate prevents low-relevance noise.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">07</span>Integrations</h2>
+        <ul>
+          <li><b>Apify</b> — Instagram scraping (following &amp; latest posts).</li>
+          <li><b>AWS Bedrock</b> — classification + drafting.</li>
+          <li><b>Unipile</b> — posting the comment.</li>
+          <li>A queue/store for new-post de-duplication.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Technical challenges</h2>
+        <ul>
+          <li>Filtering out already-seen posts to avoid duplicate comments.</li>
+          <li>Making the relevance gate strict enough to stay non-spammy.</li>
+          <li>Drafting comments that read human.</li>
+          <li>Handling post-time failures without losing the queue.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">09</span>Reliability engineering</h2>
+        <ul>
+          <li><b>Deployment:</b> self-hosted n8n on a schedule.</li>
+          <li><b>Monitoring:</b> queue status + posted/failed flags.</li>
+          <li><b>Error handling:</b> an explicit failure branch on the post step; new-post filtering prevents duplicates.</li>
+          <li><b>Validation:</b> a relevance/should-post gate before any comment is drafted.</li>
+          <li><b>Scalability:</b> two decoupled stages (scrape vs comment) so each can run and retry independently.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">10</span>Business impact</h2>
+        <div class="itiles">
+          <div class="it"><div class="n">Relevance</div><div class="l">-gated commenting</div></div>
+          <div class="it alt"><div class="n">2-stage</div><div class="l">scrape → comment</div></div>
+          <div class="it"><div class="n">0</div><div class="l">duplicate posts (via new-post filter)</div></div>
+          <div class="it alt"><div class="n">Auto</div><div class="l">hands-off operation</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">11</span>Lessons learned</h2>
+        <p>The value isn't posting more — it's posting only when relevant. A strict LLM relevance gate is what separates useful engagement from spam.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">12</span>Future improvements</h2>
+        <ul>
+          <li>Add per-account tone profiles.</li>
+          <li>Track reply/like rates to tune the relevance threshold.</li>
+          <li>Add a human-approval queue for borderline posts.</li>
+        </ul>
+      </div>
+
+      <div class="nextcase">
+        <div><div class="l">Next case</div><a href="x-auto-comment.html">X (Twitter) AI Auto-Comment →</a></div>
+        <a class="btn ghost" href="../index.html#work">All work</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div>© <span id="yr">2026</span> · Mustafa Hamdy</div><div>AI Automation Engineer</div></div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

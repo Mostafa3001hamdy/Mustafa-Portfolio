@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Facebook Marketplace AI Outreach — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: an n8n workflow that scrapes marketplace listings via Apify, qualifies each with a Bedrock LLM, and reaches out over WhatsApp — architecture, reliability engineering, and screenshots." />
+<meta name="theme-color" content="#0b0a09" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#body">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
+    <ul>
+      <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
+      <li class="hide-sm"><a class="link" href="../index.html#contact">Contact</a></li>
+      <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="body">
+<section class="cstop">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All work</a>
+    <div class="cshero">
+      <div class="eyebrow" style="margin-bottom:16px">Case Study <span class="dot">/</span> Lead Gen · Messaging</div>
+      <h1>Facebook Marketplace <em>AI Outreach</em></h1>
+      <p class="sub">Scrapes marketplace listings, uses an LLM to qualify each one and draft a tailored message, then reaches out over WhatsApp automatically — turning raw listings into conversations.</p>
+      <div class="actions">
+        <a class="btn ghost" href="../index.html#work">More case studies</a>
+        <a class="btn ghost" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="../workflows/31-marketplace-outreach.png" alt="n8n workflow: marketplace scraping, Bedrock LLM qualification, and WhatsApp outreach"></div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="f"><div class="fk">Role</div><div class="fv">Design, build &amp; operate</div></div>
+      <div class="f"><div class="fk">Stack</div><div class="fv">n8n · Apify · AWS Bedrock · WhatsApp</div></div>
+      <div class="f"><div class="fk">Type</div><div class="fv">Batch (Apify) + per-item messaging</div></div>
+      <div class="f"><div class="fk">Impact</div><div class="fv">Scrape → AI qualify → WhatsApp</div></div>
+    </div>
+
+    <div class="cbody">
+      <div class="block">
+        <h2><span class="n">01</span>Overview</h2>
+        <p>A lead-generation pipeline that runs an Apify actor over marketplace listings, loops each result through an LLM that qualifies it and drafts a personalized WhatsApp message, sends it, and records the outcome — plus an upload/HTTP step to store artifacts.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Business problem</h2>
+        <p>Manually trawling marketplace listings and messaging sellers is slow and inconsistent. The team wanted qualified listings turned into personalized outreach automatically.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Architecture</h2>
+        <div class="diagram">
+          <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+          <div class="arch" role="img" aria-label="A manual trigger starts an Apify actor that scrapes marketplace listings into a dataset; an AI layer with a Basic LLM Chain on AWS Bedrock and a Structured Output Parser qualifies and drafts messages; WhatsApp sends outreach and rows plus files are written to storage.">
+            <div class="tier"><div class="tl">Trigger</div><div class="tn"><span class="node trig">Manual / execute</span></div></div>
+            <div class="tier"><div class="tl">Ingestion</div><div class="tn"><span class="node int">Apify actor (marketplace)</span><span class="node store">Get dataset items</span></div></div>
+            <div class="tier"><div class="tl">AI layer</div><div class="tn"><span class="node ai">Basic LLM Chain (AWS Bedrock)</span><span class="node ai">Structured Output Parser</span></div></div>
+            <div class="tier"><div class="tl">Action</div><div class="tn"><span class="node int">Send WhatsApp message</span><span class="node store">Append/Update row</span><span class="node store">Upload file</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">04</span>Workflow</h2>
+        <div class="diagram">
+          <div class="flow" role="img" aria-label="Execute triggers edit fields, then an Apify actor scrapes listings and gets dataset items, a loop iterates each item through code and an LLM on Bedrock that qualifies and drafts, a row is appended, an If gate routes qualified items to send WhatsApp and update the row.">
+            <span class="node trig">Execute</span><span class="arrow">→</span><span class="node int">Edit fields</span><span class="arrow">→</span><span class="node int">Apify run actor</span><span class="arrow">→</span><span class="node store">Get dataset items</span><span class="arrow">→</span><span class="node int">Loop over items</span><span class="arrow">→</span><span class="node int">Code</span><span class="arrow">→</span><span class="node ai">LLM qualify + draft (Bedrock)</span><span class="arrow">→</span><span class="node store">Append row</span><span class="arrow">→</span><span class="node trig">If</span><span class="arrow">→</span><span class="node int">Send WhatsApp</span><span class="arrow">→</span><span class="node store">Update row</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">05</span>Screenshots</h2>
+        <div class="gallery solo">
+          <figure><a href="../workflows/31-marketplace-outreach.png" target="_blank" rel="noopener"><img src="../workflows/31-marketplace-outreach.png" alt="n8n workflow: marketplace scraping, Bedrock LLM qualification, and WhatsApp outreach" loading="lazy"></a><figcaption>Marketplace scrape → AI qualify → WhatsApp</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>AI components</h2>
+        <ul>
+          <li>A <b>Basic LLM Chain</b> on AWS Bedrock with a <b>Structured Output Parser</b> qualifies each listing and drafts a tailored message as structured output.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">07</span>Integrations</h2>
+        <ul>
+          <li><b>Apify</b> — marketplace scraping actor.</li>
+          <li><b>AWS Bedrock</b> — qualification + drafting.</li>
+          <li><b>WhatsApp</b> — outreach messages.</li>
+          <li><b>Google Sheets</b> — row tracking.</li>
+          <li>An <b>HTTP/upload step</b> for artifacts.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Technical challenges</h2>
+        <ul>
+          <li>Normalizing messy scraped listing data before the LLM.</li>
+          <li>Keeping messages personalized yet compliant.</li>
+          <li>Looping per-item without hitting messaging limits.</li>
+          <li>Conditional (If) routing so only qualified listings get messaged.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">09</span>Reliability engineering</h2>
+        <ul>
+          <li><b>Deployment:</b> self-hosted n8n, Apify-actor-driven batch.</li>
+          <li><b>Monitoring:</b> per-row status in Sheets.</li>
+          <li><b>Error handling:</b> Loop-Over-Items with conditional routing; an If gate skips unqualified rows.</li>
+          <li><b>Validation:</b> Structured Output Parser enforces a consistent message schema.</li>
+          <li><b>Scalability:</b> batch scrape + per-item loop scales with the dataset.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">10</span>Business impact</h2>
+        <div class="itiles">
+          <div class="it"><div class="n">Auto</div><div class="l">scrape → outreach</div></div>
+          <div class="it alt"><div class="n">AI</div><div class="l">qualify + draft</div></div>
+          <div class="it"><div class="n">WhatsApp</div><div class="l">direct channel</div></div>
+          <div class="it alt"><div class="n">1 flow</div><div class="l">listings → conversations</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">11</span>Lessons learned</h2>
+        <p>Putting a Structured Output Parser after the LLM made the drafted messages consistent enough to send unattended — structure is what makes generative output operationally safe.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">12</span>Future improvements</h2>
+        <ul>
+          <li>Add reply handling + a follow-up sequence.</li>
+          <li>Dedup sellers across runs.</li>
+          <li>Add a compliance/rate guard per number.</li>
+        </ul>
+      </div>
+
+      <div class="nextcase">
+        <div><div class="l">Next case</div><a href="jira-sprint-intelligence.html">Jira Sprint Intelligence →</a></div>
+        <a class="btn ghost" href="../index.html#work">All work</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div>© <span id="yr">2026</span> · Mustafa Hamdy</div><div>AI Automation Engineer</div></div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

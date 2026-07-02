@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jira Sprint Intelligence — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: a multi-workflow Jira sprint intelligence suite — architecture, reliability engineering, screenshots, and measured impact." />
+<meta name="theme-color" content="#0b0a09" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#body">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
+    <ul>
+      <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
+      <li class="hide-sm"><a class="link" href="../index.html#contact">Contact</a></li>
+      <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="body">
+<section class="cstop">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All work</a>
+    <div class="cshero">
+      <div class="eyebrow" style="margin-bottom:16px">Case Study <span class="dot">/</span> Internal Ops · AI Extraction · Governance</div>
+      <h1>Jira <em>Sprint Intelligence</em></h1>
+      <p class="sub">7+ interlinked workflows that ingest team briefings, reconcile Jira against email commitments, and surface scope and risk drift — as automated reports leadership actually trusts.</p>
+      <div class="actions">
+        <a class="btn ghost" href="../index.html#work">More case studies</a>
+        <a class="btn ghost" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="../workflows/10-monday-briefing-ingestion.jpeg" alt="n8n workflow: Monday briefing ingestion with AI extraction and Jira reconciliation"></div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="f"><div class="fk">Role</div><div class="fv">Design, build &amp; operate</div></div>
+      <div class="f"><div class="fk">Stack</div><div class="fv">n8n · Jira · Gmail · AI extraction · RAG status</div></div>
+      <div class="f"><div class="fk">Type</div><div class="fv">7+ scheduled + upload-triggered workflows</div></div>
+      <div class="f"><div class="fk">Impact</div><div class="fv">2 teams (SD + ML) · 100% automated</div></div>
+    </div>
+
+    <div class="cbody">
+      <div class="block">
+        <h2><span class="n">01</span>Overview</h2>
+        <p>A suite that turns weekly briefings, debriefs, Jira sprints, and commitment emails into a single automated intelligence layer — extracting commitments, reconciling them against Jira, detecting drift, and emailing leadership RAG-status reports.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Business problem</h2>
+        <p>Two teams (Software Dev and ML) ran Monday briefings and Friday debriefs. Notes lived in Jira, commitments lived in email, and scope drift went undetected until it became a delivery problem. Leadership needed one automated, trustworthy weekly view.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Architecture</h2>
+        <div class="diagram">
+          <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+          <div class="arch" role="img" aria-label="Cron and transcript-upload triggers feed Jira sprint snapshots, Gmail commitments, and a Sheets baseline; an AI layer runs extraction, semantic match, and a DR1–DR8 drift classifier into a RAG roll-up; output is an HTML report emailed to leadership via Gmail.">
+            <div class="tier"><div class="tl">Triggers</div><div class="tn"><span class="node trig">Cron (Mon/Wed/Fri/Tue)</span><span class="node trig">Transcript upload</span></div></div>
+            <div class="tier"><div class="tl">Sources</div><div class="tn"><span class="node int">Jira sprint snapshot</span><span class="node int">Gmail commitments</span><span class="node store">Sheets baseline</span></div></div>
+            <div class="tier"><div class="tl">AI + logic</div><div class="tn"><span class="node ai">AI extraction</span><span class="node ai">Semantic match</span><span class="node ai">Drift classifier DR1–DR8</span><span class="node store">RAG roll-up</span></div></div>
+            <div class="tier"><div class="tl">Output</div><div class="tn"><span class="node store">HTML report</span><span class="node int">Gmail → leadership</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">04</span>Workflow</h2>
+        <div class="diagram">
+          <div class="flow" role="img" aria-label="Reconciliation workflow: Cron triggers a Jira sprint snapshot and Gmail commitments, which are normalized and reconciled into OK, MISMATCH, or NO_MATCH, then an HTML report is generated and emailed to leadership.">
+            <span class="node trig">Cron</span><span class="arrow">→</span><span class="node int">Jira sprint</span><span class="arrow">→</span><span class="node int">Gmail commitments</span><span class="arrow">→</span><span class="node store">Normalize</span><span class="arrow">→</span><span class="node ai">Reconcile OK/MISMATCH/NO_MATCH</span><span class="arrow">→</span><span class="node store">HTML report</span><span class="arrow">→</span><span class="node int">Email leadership</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">05</span>Screenshots</h2>
+        <div class="gallery">
+          <figure><a href="../workflows/10-monday-briefing-ingestion.jpeg" target="_blank" rel="noopener"><img src="../workflows/10-monday-briefing-ingestion.jpeg" alt="Monday briefing ingestion" loading="lazy"></a><figcaption>Monday briefing ingestion</figcaption></figure>
+          <figure><a href="../workflows/09-monday-commitment-email.jpeg" target="_blank" rel="noopener"><img src="../workflows/09-monday-commitment-email.jpeg" alt="Commitment email reconciliation" loading="lazy"></a><figcaption>Commitment email reconciliation</figcaption></figure>
+          <figure><a href="../workflows/14-midweek-drift-detection.jpeg" target="_blank" rel="noopener"><img src="../workflows/14-midweek-drift-detection.jpeg" alt="Midweek drift detection" loading="lazy"></a><figcaption>Midweek drift detection</figcaption></figure>
+          <figure><a href="../workflows/11-friday-transcript-report.jpeg" target="_blank" rel="noopener"><img src="../workflows/11-friday-transcript-report.jpeg" alt="Friday transcript report" loading="lazy"></a><figcaption>Friday transcript report</figcaption></figure>
+          <figure><a href="../workflows/12-friday-debrief-sd-team.jpeg" target="_blank" rel="noopener"><img src="../workflows/12-friday-debrief-sd-team.jpeg" alt="Friday debrief — SD team" loading="lazy"></a><figcaption>Friday debrief — SD team</figcaption></figure>
+          <figure><a href="../workflows/13-friday-debrief-ml-team.jpeg" target="_blank" rel="noopener"><img src="../workflows/13-friday-debrief-ml-team.jpeg" alt="Friday debrief — ML team" loading="lazy"></a><figcaption>Friday debrief — ML team</figcaption></figure>
+          <figure><a href="../workflows/07-sd-ml-debrief-briefing-transcript.jpeg" target="_blank" rel="noopener"><img src="../workflows/07-sd-ml-debrief-briefing-transcript.jpeg" alt="Debrief + briefing transcript" loading="lazy"></a><figcaption>Debrief + briefing transcript</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>AI components</h2>
+        <ul>
+          <li>Multi-stage AI extraction of tasks/decisions/commitments with confidence scoring and speaker attribution.</li>
+          <li>Semantic-similarity matching of free-text commitments to Jira.</li>
+          <li>Drift classification into a DR1–DR8 taxonomy.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">07</span>Integrations</h2>
+        <ul>
+          <li><b>Jira</b> — sprints, issues, comments.</li>
+          <li><b>Gmail</b> — commitment emails + report delivery.</li>
+          <li><b>Google Sheets/Drive</b> — baseline snapshots + storage.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Technical challenges</h2>
+        <ul>
+          <li>Multi-stage extraction with confidence + speaker attribution.</li>
+          <li>Reconciling free-text commitments to Jira via semantic similarity (OK/MISMATCH/NO_MATCH).</li>
+          <li>Encoding governance as workflow logic — no delivery accepted on narrative alone; evidence required, approvals sequenced.</li>
+          <li>Idempotency so re-runs never double-post to Jira.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">09</span>Reliability engineering</h2>
+        <ul>
+          <li><b>Deployment:</b> scheduled crons — Mon 18:00 &amp; Fri 20:00 (Asia/Dubai), Tue 11:00 (Africa/Cairo).</li>
+          <li><b>Monitoring:</b> meeting records with execution status + matched/missing counts per run.</li>
+          <li><b>Error handling:</b> fail-fast on missing transcript, Jira retry, partial-success marking.</li>
+          <li><b>Validation:</b> unique-ID idempotency and evidence checks.</li>
+          <li><b>Scalability:</b> team-specific SD + ML variants with baseline-vs-actual snapshots and RAG roll-ups.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">10</span>Business impact</h2>
+        <div class="itiles">
+          <div class="it"><div class="n">7<em>+</em></div><div class="l">Interlinked workflows</div></div>
+          <div class="it alt"><div class="n">2</div><div class="l">Teams in parallel</div></div>
+          <div class="it"><div class="n">DR1<em>–8</em></div><div class="l">Drift taxonomy</div></div>
+          <div class="it alt"><div class="n">100<em>%</em></div><div class="l">Automated delivery</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">11</span>Lessons learned</h2>
+        <p>"Don't accept a spoken claim without evidence" became a rule I encoded directly into the pipeline. Automation isn't just faster reporting — it can enforce process discipline humans skip.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">12</span>Future improvements</h2>
+        <ul>
+          <li>Predictive drift alerts before Friday.</li>
+          <li>A live dashboard alongside the emailed report.</li>
+          <li>Auto-created Jira tickets for missing commitments.</li>
+        </ul>
+      </div>
+
+      <div class="nextcase">
+        <div><div class="l">Next case</div><a href="hubspot-clay-automation.html">HubSpot + Clay Automation →</a></div>
+        <a class="btn ghost" href="../index.html#work">All work</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div>© <span id="yr">2026</span> · Mustafa Hamdy</div><div>AI Automation Engineer</div></div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

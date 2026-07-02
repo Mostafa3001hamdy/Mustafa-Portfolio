@@ -211,3 +211,26 @@ footer .heart{color:var(--accent)}
 .nextcase .l{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--mut)}
 .nextcase a{font-family:var(--serif);font-size:24px;color:var(--ink)}
 .nextcase a:hover{color:var(--accent)}
+
+/* ---------- SCREENSHOT GALLERY (case pages) ---------- */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin:14px 0 4px}
+.gallery figure{border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;background:#0d0d0d;transition:transform .25s,border-color .25s}
+.gallery figure:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.gallery a{display:block}
+.gallery img{width:100%;height:auto;display:block}
+.gallery figcaption{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);padding:11px 14px;border-top:1px solid var(--line)}
+.gallery.solo{grid-template-columns:1fr}
+
+/* ---------- MINI CARD CTA (more work) ---------- */
+.mcard .cta{margin-top:12px}
+.mcard .body{display:flex;flex-direction:column;gap:2px}
+
+/* bigger hero imagery + breathing room on large screens */
+@media(min-width:1000px){
+  .pcard .shot{aspect-ratio:16/10}
+  .hero{padding:132px 0 72px}
+}
+/* make the first two featured cards more prominent on wide screens */
+@media(min-width:1000px){
+  .grid.feature .pcard:first-child,.grid.feature .pcard:nth-child(2){}
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Candidate Feedback Analysis — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: an AI feedback analysis flow that captures onboarding submissions, runs them through an LLM with a structured-output parser, and sends a personalized follow-up email." />
+<meta name="theme-color" content="#0b0a09" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#body">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
+    <ul>
+      <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
+      <li class="hide-sm"><a class="link" href="../index.html#contact">Contact</a></li>
+      <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="body">
+<section class="cstop">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All work</a>
+    <div class="cshero">
+      <div class="eyebrow" style="margin-bottom:16px">Case Study <span class="dot">/</span> AI · Onboarding · Personalization</div>
+      <h1>Candidate <em>Feedback Analysis</em></h1>
+      <p class="sub">Captures onboarding feedback, runs it through an LLM with a structured-output parser, and generates a personalized follow-up email — turning raw form submissions into tailored outreach.</p>
+      <div class="actions">
+        <a class="btn ghost" href="../index.html#work">More case studies</a>
+        <a class="btn ghost" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="../workflows/30-feedback-email.png" alt="n8n workflow: AI feedback email generation with an AWS Bedrock chat model and structured output parser"></div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="f"><div class="fk">Role</div><div class="fv">Design, build &amp; operate</div></div>
+      <div class="f"><div class="fk">Stack</div><div class="fv">n8n · AWS Bedrock · Structured Output Parser · Gmail</div></div>
+      <div class="f"><div class="fk">Type</div><div class="fv">Webhook capture + delayed email</div></div>
+      <div class="f"><div class="fk">Impact</div><div class="fv">AI-personalized · structured output</div></div>
+    </div>
+
+    <div class="cbody">
+      <div class="block">
+        <h2><span class="n">01</span>Overview</h2>
+        <p>A two-part flow: capture and analyze feedback submissions with an LLM (writing a structured result back to the sheet and CRM), then, on a delay, generate and send a personalized follow-up email from the analyzed data.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Business problem</h2>
+        <p>Onboarding feedback piled up unread, and generic follow-ups felt impersonal. The team wanted each submission analyzed and answered with a tailored message — automatically, shortly after submission.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Architecture</h2>
+        <div class="diagram">
+          <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+          <div class="arch" role="img" aria-label="A webhook and schedule trigger capture and delayed send; data is cleaned and looked up or appended in a sheet; an AI layer with a Basic LLM Chain on AWS Bedrock and a Structured Output Parser analyzes feedback; output sends a personalized Gmail email and a CRM upsert.">
+            <div class="tier"><div class="tl">Trigger</div><div class="tn"><span class="node trig">Webhook (feedback form)</span><span class="node trig">Schedule (delayed send)</span></div></div>
+            <div class="tier"><div class="tl">Capture</div><div class="tn"><span class="node int">Clean data</span><span class="node store">Sheet lookup/append</span></div></div>
+            <div class="tier"><div class="tl">AI layer</div><div class="tn"><span class="node ai">Basic LLM Chain (AWS Bedrock)</span><span class="node ai">Structured Output Parser</span></div></div>
+            <div class="tier"><div class="tl">Output</div><div class="tn"><span class="node int">Personalized email (Gmail)</span><span class="node int">CRM upsert</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">04</span>Workflow</h2>
+        <div class="diagram">
+          <div class="flow" role="img" aria-label="Webhook triggers data cleaning and a sheet append or update, a Basic LLM Chain on Bedrock analyzes feedback through a Structured Output Parser, the row and CRM are updated, then on a delay a schedule creates and sends a personalized onboarding email via Gmail.">
+            <span class="node trig">Webhook</span><span class="arrow">→</span><span class="node int">Clean data</span><span class="arrow">→</span><span class="node store">Sheet (append/update)</span><span class="arrow">→</span><span class="node ai">Basic LLM Chain (Bedrock)</span><span class="arrow">→</span><span class="node ai">Structured Output Parser</span><span class="arrow">→</span><span class="node int">Update row + CRM upsert</span><span class="arrow">→</span><span class="node trig">(delay) Schedule</span><span class="arrow">→</span><span class="node int">Create onboarding email</span><span class="arrow">→</span><span class="node int">Send (Gmail)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">05</span>Screenshots</h2>
+        <div class="gallery">
+          <figure><a href="../workflows/30-feedback-email.png" target="_blank" rel="noopener"><img src="../workflows/30-feedback-email.png" alt="AI feedback email with Bedrock and structured output parser" loading="lazy"></a><figcaption>AI feedback email (Bedrock + parser)</figcaption></figure>
+          <figure><a href="../workflows/23-onboarding-personalization.png" target="_blank" rel="noopener"><img src="../workflows/23-onboarding-personalization.png" alt="Onboarding feedback capture and personalization" loading="lazy"></a><figcaption>Onboarding feedback capture + personalization</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>AI components</h2>
+        <ul>
+          <li>A Basic LLM Chain on AWS Bedrock analyzes the feedback; a Structured Output Parser enforces a consistent shape so the result can drive an email template reliably.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">07</span>Integrations</h2>
+        <ul>
+          <li><b>Webhooks</b> — form submission.</li>
+          <li><b>Google Sheets</b> — store + state.</li>
+          <li><b>AWS Bedrock</b> — analysis + drafting.</li>
+          <li><b>Gmail</b> — delayed personalized email.</li>
+          <li><b>CRM upsert</b> — HubSpot.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Technical challenges</h2>
+        <ul>
+          <li>Enforcing a consistent LLM output shape for templating (Structured Output Parser).</li>
+          <li>A delayed-send gate — email only sent after the analysis exists and a time threshold passes.</li>
+          <li>Dedup so a submission is analyzed and emailed once.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">09</span>Reliability engineering</h2>
+        <ul>
+          <li><b>Deployment:</b> webhook capture + scheduled delayed sender.</li>
+          <li><b>Monitoring:</b> per-row status (analyzed / emailed) in Sheets.</li>
+          <li><b>Error handling:</b> IF gates require the AI result before sending; not-yet-sent guard prevents duplicates.</li>
+          <li><b>Validation:</b> Structured Output Parser guarantees the email template's fields exist.</li>
+          <li><b>Scalability:</b> capture and send are decoupled, so bursts of submissions don't block delivery.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">10</span>Business impact</h2>
+        <div class="itiles">
+          <div class="it"><div class="n">AI</div><div class="l">Per-submission analysis</div></div>
+          <div class="it alt"><div class="n">Personalized</div><div class="l">Follow-up email</div></div>
+          <div class="it"><div class="n">Structured</div><div class="l">Output for templating</div></div>
+          <div class="it alt"><div class="n">0</div><div class="l">Duplicate sends</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">11</span>Lessons learned</h2>
+        <p>A Structured Output Parser is what makes LLM output safe to drop into an email template — without it, personalization breaks the moment the model phrases things differently.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">12</span>Future improvements</h2>
+        <ul>
+          <li>Sentiment scoring to prioritize at-risk feedback.</li>
+          <li>Route negative feedback to a human.</li>
+          <li>A/B test follow-up templates.</li>
+        </ul>
+      </div>
+
+      <div class="nextcase">
+        <div><div class="l">Next case</div><a href="newsletter-onboarding.html">Newsletter &amp; Onboarding →</a></div>
+        <a class="btn ghost" href="../index.html#work">All work</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div>© <span id="yr">2026</span> · Mustafa Hamdy</div><div>AI Automation Engineer</div></div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

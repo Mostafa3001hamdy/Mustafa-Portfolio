@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Multi-Platform Content Publishing — Case Study — Mustafa Hamdy</title>
-<meta name="description" content="Case study: a multi-workflow AI LinkedIn engagement engine — architecture, reliability engineering, and measured impact." />
+<meta name="description" content="Case study: a multi-platform content publishing engine — architecture, reliability engineering, screenshots, and measured impact." />
 <meta name="theme-color" content="#0b0a09" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
     <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
     <ul>
       <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
-      <li class="hide-sm"><a class="link" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a></li>
+      <li class="hide-sm"><a class="link" href="../index.html#contact">Contact</a></li>
       <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
     </ul>
   </div>
@@ -30,15 +30,15 @@
   <div class="wrap">
     <a class="back" href="../index.html#work">← All work</a>
     <div class="cshero">
-      <div class="eyebrow" style="margin-bottom:16px">Case Study 05 <span class="dot">/</span> Content Ops · APIs · Media</div>
+      <div class="eyebrow" style="margin-bottom:16px">Case Study <span class="dot">/</span> Content Ops · APIs · Media</div>
       <h1>Multi-Platform <em>Content Publishing</em></h1>
       <p class="sub">A publishing engine that turns a content calendar into live posts across Instagram and LinkedIn — images, videos, carousels, and documents — with temporary hosting and automatic cleanup.</p>
       <div class="actions">
-        <a class="btn ghost" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a>
         <a class="btn ghost" href="../index.html#work">More case studies</a>
+        <a class="btn ghost" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a>
       </div>
     </div>
-    <div class="hero-shot"><img src="../workflows/21-instagram-publishing.png" alt="n8n workflow: multi-branch Instagram publishing via Graph API"></div>
+    <div class="hero-shot"><img src="../workflows/21-instagram-publishing.png" alt="n8n workflow: multi-branch Instagram publishing via the Graph API"></div>
   </div>
 </section>
 
@@ -53,15 +53,20 @@
 
     <div class="cbody">
       <div class="block">
-        <h2><span class="n">01</span>The problem</h2>
-        <p>Publishing across Instagram and LinkedIn was manual, slow, and error-prone, and different content types (image, video, carousel, document) each need a different API dance. The team needed calendar-driven publishing that just worked and left no mess behind.</p>
+        <h2><span class="n">01</span>Overview</h2>
+        <p>A calendar-driven engine that reads a content sheet, pulls the asset from Drive, hosts it temporarily on Supabase for a public URL, publishes to Instagram (Graph API) or LinkedIn (REST) in the right format, updates the sheet, and deletes the temp file — leaving zero mess.</p>
       </div>
 
       <div class="block">
-        <h2><span class="n">02</span>Architecture</h2>
+        <h2><span class="n">02</span>Business problem</h2>
+        <p>Publishing across Instagram and LinkedIn was manual and slow, and each content type (image, video, carousel, document) needs a different API sequence. The team needed calendar-driven publishing that just worked and left no orphaned files.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Architecture</h2>
         <div class="diagram">
           <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
-          <div class="arch" role="img" aria-label="Scheduled triggers feed five Apify scraping engines storing posts in Google Sheets; an AI layer with GPT-4o and Bedrock generates comments and qualifies leads; Unipile posts comments and DMs; status written back to Sheets.">
+          <div class="arch" role="img" aria-label="A schedule trigger reads a Sheets calendar and Drive assets; processing determines post type and uploads to Supabase for a public URL; publishing goes to Instagram Graph API and LinkedIn REST, then the sheet is updated and temp files deleted.">
             <div class="tier"><div class="tl">Trigger</div><div class="tn"><span class="node trig">Schedule (every 15 min / hourly)</span></div></div>
             <div class="tier"><div class="tl">Source</div><div class="tn"><span class="node store">Sheets calendar</span><span class="node int">Drive assets</span></div></div>
             <div class="tier"><div class="tl">Processing</div><div class="tn"><span class="node int">Determine post type (IF)</span><span class="node int">Upload to Supabase (public URL)</span></div></div>
@@ -71,26 +76,44 @@
       </div>
 
       <div class="block">
-        <h2><span class="n">03</span>Workflow</h2>
+        <h2><span class="n">04</span>Workflow</h2>
         <div class="diagram">
-          <div class="flow" role="img" aria-label="Schedule triggers Apify scraping into Sheets, GPT-4o generates a comment, Unipile posts it, reply detection routes hot leads to an AI DM agent, status written back to Sheets.">
+          <div class="flow" role="img" aria-label="Instagram publish flow">
             <span class="node trig">Schedule</span><span class="arrow">→</span><span class="node store">Get rows</span><span class="arrow">→</span><span class="node">Determine type</span><span class="arrow">→</span><span class="node int">Download Drive asset</span><span class="arrow">→</span><span class="node int">Upload Supabase</span><span class="arrow">→</span><span class="node int">Create media container</span><span class="arrow">→</span><span class="node">Wait</span><span class="arrow">→</span><span class="node int">Publish</span><span class="arrow">→</span><span class="node store">Update sheet</span><span class="arrow">→</span><span class="node int">Cleanup temp files</span>
           </div>
         </div>
       </div>
 
       <div class="block">
-        <h2><span class="n">04</span>Integrations &amp; AI components</h2>
+        <h2><span class="n">05</span>Screenshots</h2>
+        <div class="gallery">
+          <figure><a href="../workflows/21-instagram-publishing.png" target="_blank" rel="noopener"><img src="../workflows/21-instagram-publishing.png" alt="Instagram publishing (Graph API)" loading="lazy"></a><figcaption>Instagram publishing (Graph API)</figcaption></figure>
+          <figure><a href="../workflows/22-linkedin-publishing.png" target="_blank" rel="noopener"><img src="../workflows/22-linkedin-publishing.png" alt="LinkedIn document/image publishing (REST)" loading="lazy"></a><figcaption>LinkedIn document/image publishing (REST)</figcaption></figure>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>AI components</h2>
         <ul>
-          <li><b>APIs:</b> Instagram Graph API (POST /media, POST /media_publish), LinkedIn REST API (documents initializeUpload + posts, OAuth2 scopes w_member_social), Google Sheets, Google Drive, Supabase Storage (temporary public hosting).</li>
-          <li><b>AI:</b> none — this is pure orchestration and media-lifecycle engineering.</li>
+          <li>None — this is pure orchestration and media-lifecycle engineering; the value is reliability, not generation.</li>
         </ul>
       </div>
 
       <div class="block">
-        <h2><span class="n">05</span>Technical challenges</h2>
+        <h2><span class="n">07</span>Integrations</h2>
         <ul>
-          <li>Media-not-ready handling — wait + status check + retry before publishing.</li>
+          <li><b>Instagram Graph API</b> (POST /media, POST /media_publish).</li>
+          <li><b>LinkedIn REST API</b> (documents initializeUpload + posts, OAuth2 w_member_social).</li>
+          <li><b>Google Sheets</b> (calendar/status).</li>
+          <li><b>Google Drive</b> (assets).</li>
+          <li><b>Supabase Storage</b> (temporary public hosting).</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Technical challenges</h2>
+        <ul>
+          <li>Media-not-ready handling (wait + status check + retry before publishing).</li>
           <li>Format branching for image / video / carousel / document, each with its own API sequence.</li>
           <li>Guaranteeing zero orphaned files by deleting temp assets only after a successful publish.</li>
           <li>LinkedIn OAuth2 scopes and document upload initialization.</li>
@@ -98,17 +121,18 @@
       </div>
 
       <div class="block">
-        <h2><span class="n">06</span>Reliability engineering</h2>
-        <div class="facts" style="margin:6px 0 0">
-          <div class="f"><div class="fk">Deployment</div><div class="fv">Self-hosted n8n · schedule every 15 min / hourly</div></div>
-          <div class="f"><div class="fk">Monitoring</div><div class="fv">Status = Published + timestamp written to the sheet</div></div>
-          <div class="f"><div class="fk">Error handling &amp; retries</div><div class="fv">Upload failure stops + logs + preserves assets · publish failure never deletes assets or marks published · retry on media-not-ready</div></div>
-          <div class="f"><div class="fk">Validation &amp; scale</div><div class="fv">Per-row calendar processing · zero orphaned files / zero storage accumulation</div></div>
-        </div>
+        <h2><span class="n">09</span>Reliability engineering</h2>
+        <ul>
+          <li><b>Deployment:</b> self-hosted n8n, schedule every 15 min / hourly.</li>
+          <li><b>Monitoring:</b> Status = Published + timestamp written to the sheet.</li>
+          <li><b>Error handling:</b> upload failure stops + logs + preserves assets; publish failure never deletes assets or marks published; retry on media-not-ready.</li>
+          <li><b>Validation:</b> post-type routing ensures the correct API sequence per format.</li>
+          <li><b>Scalability:</b> per-row calendar processing with zero storage accumulation.</li>
+        </ul>
       </div>
 
       <div class="block">
-        <h2><span class="n">07</span>Impact</h2>
+        <h2><span class="n">10</span>Business impact</h2>
         <div class="itiles">
           <div class="it"><div class="n">0</div><div class="l">Manual posting steps</div></div>
           <div class="it alt"><div class="n">4</div><div class="l">Formats: image/video/carousel/doc</div></div>
@@ -118,17 +142,21 @@
       </div>
 
       <div class="block">
-        <h2><span class="n">08</span>Lessons learned</h2>
+        <h2><span class="n">11</span>Lessons learned</h2>
         <p>Publishing is the easy part — the real work is the media lifecycle: temporary hosting, guaranteed cleanup, and retry-on-not-ready so a slow API never leaves a broken post or a storage leak.</p>
       </div>
 
-      <div class="shot-row">
-        <figure class="figshot"><img src="../workflows/22-linkedin-publishing.png" alt="n8n workflow: LinkedIn document/image publishing via LinkedIn REST API" loading="lazy"></figure>
+      <div class="block">
+        <h2><span class="n">12</span>Future improvements</h2>
+        <ul>
+          <li>Add TikTok/YouTube Shorts targets.</li>
+          <li>A preview-approval step before publish.</li>
+          <li>Analytics write-back per post.</li>
+        </ul>
       </div>
 
       <div class="nextcase">
-        <div><div class="l">Next case</div><a href="candidate-onboarding.html">Candidate Onboarding &amp; API Keys →</a></div>
-        <a class="btn ghost" href="../index.html#work">All work</a>
+        <a class="btn ghost" href="../index.html#work">Back to all work</a>
       </div>
     </div>
   </div>
