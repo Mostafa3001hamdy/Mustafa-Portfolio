@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LinkedIn Lead Engagement Engine — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: a multi-workflow AI LinkedIn engagement engine — architecture, reliability engineering, and measured impact." />
+<meta name="theme-color" content="#0b0a09" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#body">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
+    <ul>
+      <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
+      <li class="hide-sm"><a class="link" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="body">
+<section class="cstop">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All work</a>
+    <div class="cshero">
+      <div class="eyebrow" style="margin-bottom:16px">Case Study 01 <span class="dot">/</span> AI Agents · Outbound</div>
+      <h1>AI LinkedIn Lead <em>Engagement Engine</em></h1>
+      <p class="sub">A multi-workflow system that scales founder-led LinkedIn engagement across hundreds of prospects — acting human, staying safe, and turning passive engagement into pipeline.</p>
+      <div class="actions">
+        <a class="btn ghost" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn ghost" href="../index.html#work">More case studies</a>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="../workflows/01-linkedin-post-scraping.jpeg" alt="n8n workflow: five parallel LinkedIn post-scraping engines feeding Google Sheets"></div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="f"><div class="fk">Role</div><div class="fv">Design, build &amp; operate (end-to-end)</div></div>
+      <div class="f"><div class="fk">Stack</div><div class="fv">n8n · GPT-4o · AWS Bedrock · Apify · Unipile</div></div>
+      <div class="f"><div class="fk">Type</div><div class="fv">Multi-workflow · scheduled + event-driven</div></div>
+      <div class="f"><div class="fk">Impact</div><div class="fv">400+ profiles · 5 runs/day · ~65% post-success</div></div>
+    </div>
+
+    <div class="cbody">
+      <div class="block">
+        <h2><span class="n">01</span>The problem</h2>
+        <p>FortyGuard needed to scale founder-led outreach to hundreds of targeted prospects without burning out the team — or getting the account flagged by LinkedIn. The system had to act human, sound human, and stay within platform safety limits while engaging continuously.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Architecture</h2>
+        <div class="diagram">
+          <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+          <div class="arch" role="img" aria-label="Scheduled triggers feed five Apify scraping engines storing posts in Google Sheets; an AI layer with GPT-4o and Bedrock generates comments and qualifies leads; Unipile posts comments and DMs; status written back to Sheets.">
+            <div class="tier"><div class="tl">Triggers</div><div class="tn"><span class="node trig">Schedule ×5/day</span><span class="node trig">Reply detection</span></div></div>
+            <div class="tier"><div class="tl">Ingestion</div><div class="tn"><span class="node int">Apify engine 1–5</span><span class="node store">Sheets (posts)</span></div></div>
+            <div class="tier"><div class="tl">AI layer</div><div class="tn"><span class="node ai">GPT-4o comment gen</span><span class="node ai">AI Agent · qualifier</span><span class="node ai">Bedrock DM writer</span></div></div>
+            <div class="tier"><div class="tl">Action</div><div class="tn"><span class="node int">Unipile · post</span><span class="node int">Unipile · DM</span><span class="node store">Sheets · status</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Workflow</h2>
+        <div class="diagram">
+          <div class="flow" role="img" aria-label="Schedule triggers Apify scraping into Sheets, GPT-4o generates a comment, Unipile posts it, reply detection routes hot leads to an AI DM agent, status written back to Sheets.">
+            <span class="node trig">Schedule</span><span class="arrow">→</span><span class="node int">Apify scrape</span><span class="arrow">→</span><span class="node store">Sheets</span><span class="arrow">→</span><span class="node ai">GPT-4o comment</span><span class="arrow">→</span><span class="node int">Unipile post</span><span class="arrow">→</span><span class="node trig">Reply?</span><span class="arrow">→</span><span class="node ai">AI DM agent</span><span class="arrow">→</span><span class="node store">Status</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">04</span>Integrations &amp; AI components</h2>
+        <ul>
+          <li><b>APIs:</b> Apify (scraping), Unipile (comment + DM), Google Sheets, AWS Bedrock, Azure OpenAI.</li>
+          <li><b>AI:</b> GPT-4o persona-prompt comment generation (1–3 line, human tone, no generic praise); Bedrock DM personalization; AI Agent + Structured Output Parser for lead qualification (HIGH/MED/LOW); Simple Memory for context.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">05</span>Technical challenges</h2>
+        <ul>
+          <li>Generating comments that read as <b>written, not generated</b> — solved with a tight persona prompt and length limits.</li>
+          <li>Staying under platform radar with <b>randomized behavioral pacing</b> and controlled execution windows.</li>
+          <li>Preventing duplicate comments and double-fires across 5 daily runs via status tracking + dedup on processed IDs.</li>
+          <li>Managing session/cookie auth and API rate limits reliably at scale.</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>Reliability engineering</h2>
+        <div class="facts" style="margin:6px 0 0">
+          <div class="f"><div class="fk">Deployment</div><div class="fv">Self-hosted n8n on VPS · 5 scheduled runs/day</div></div>
+          <div class="f"><div class="fk">Monitoring</div><div class="fv">Sheets status columns as audit trail · execution logs</div></div>
+          <div class="f"><div class="fk">Error handling &amp; retries</div><div class="fv">Wait-node rate limiting · per-item looping · retry on failure</div></div>
+          <div class="f"><div class="fk">Validation &amp; scale</div><div class="fv">Comment-quality checks · dedup · 5 parallel engines, 400+ profiles</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">07</span>Impact</h2>
+        <div class="itiles">
+          <div class="it"><div class="n">400<em>+</em></div><div class="l">Profiles engaged</div></div>
+          <div class="it alt"><div class="n">5<em>×/day</em></div><div class="l">Scheduled runs</div></div>
+          <div class="it"><div class="n">~65<em>%</em></div><div class="l">Comment post-success</div></div>
+          <div class="it alt"><div class="n">24<em>/7</em></div><div class="l">Autonomous</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Lessons learned</h2>
+        <p>Generation was the easy 20%. The 80% that made it production-worthy was reliability — pacing, deduplication, and safe re-runs. AI is a component; the system around it is the job.</p>
+      </div>
+
+      <div class="shot-row">
+        <figure class="figshot"><img src="../workflows/02-linkedin-comment-engine.jpeg" alt="AI comment engine with Bedrock LLM chains" loading="lazy"></figure>
+        <figure class="figshot"><img src="../workflows/06-fg-linkedin-outreach-dm.jpeg" alt="AI DM outreach agent for high-qualified leads" loading="lazy"></figure>
+      </div>
+
+      <div class="nextcase">
+        <div><div class="l">Next case</div><a href="whatsapp-business-card.html">WhatsApp → CRM Card Pipeline →</a></div>
+        <a class="btn ghost" href="../index.html#work">All work</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div>© <span id="yr">2026</span> · Mustafa Hamdy</div><div>AI Automation Engineer</div></div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

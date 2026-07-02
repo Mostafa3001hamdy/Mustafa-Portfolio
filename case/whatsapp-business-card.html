@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WhatsApp → CRM Business-Card Pipeline — Case Study — Mustafa Hamdy</title>
+<meta name="description" content="Case study: a multi-workflow AI LinkedIn engagement engine — architecture, reliability engineering, and measured impact." />
+<meta name="theme-color" content="#0b0a09" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:wght@300;400;500&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#body">Skip to content</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Mustafa Hamdy<span class="dot">.</span></a>
+    <ul>
+      <li class="hide-sm"><a class="link" href="../index.html#work">Work</a></li>
+      <li class="hide-sm"><a class="link" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a class="btn sm primary" href="../Mustafa-Hamdy-CV.pdf" download>Résumé</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="body">
+<section class="cstop">
+  <div class="wrap">
+    <a class="back" href="../index.html#work">← All work</a>
+    <div class="cshero">
+      <div class="eyebrow" style="margin-bottom:16px">Case Study 02 <span class="dot">/</span> Document AI · OCR · CRM</div>
+      <h1>WhatsApp → CRM <em>Business-Card Pipeline</em></h1>
+      <p class="sub">Snap a business card, send it to a WhatsApp number, and it becomes a clean, deduplicated HubSpot contact in seconds — no manual re-typing, ever.</p>
+      <div class="actions">
+        <a class="btn ghost" href="https://github.com/Mostafa3001hamdy" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn ghost" href="../index.html#work">More case studies</a>
+      </div>
+    </div>
+    <div class="hero-shot"><img src="../workflows/08-whatsapp-business-card-agent.jpeg" alt="n8n workflow: WhatsApp business-card OCR to HubSpot pipeline"></div>
+  </div>
+</section>
+
+<section style="padding-top:20px">
+  <div class="wrap">
+    <div class="facts">
+      <div class="f"><div class="fk">Role</div><div class="fv">Design, build &amp; operate</div></div>
+      <div class="f"><div class="fk">Stack</div><div class="fv">n8n · Google Vision OCR · LLM (Bedrock) · HubSpot</div></div>
+      <div class="f"><div class="fk">Type</div><div class="fv">Event-driven (WhatsApp webhook)</div></div>
+      <div class="f"><div class="fk">Impact</div><div class="fv">Card → CRM in &lt;1 min · 0 manual entry</div></div>
+    </div>
+
+    <div class="cbody">
+      <div class="block">
+        <h2><span class="n">01</span>The problem</h2>
+        <p>The team collected business cards at events and meetings, then lost them or manually retyped every field into HubSpot. The pipeline had to be frictionless and reliable enough to trust with lead data.</p>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">02</span>Architecture</h2>
+        <div class="diagram">
+          <div class="legend"><span><i class="i-trig"></i>Trigger</span><span><i class="i-ai"></i>AI</span><span><i class="i-int"></i>Integration</span><span><i class="i-store"></i>Storage</span></div>
+          <div class="arch" role="img" aria-label="A WhatsApp inbound image triggers the pipeline; an AI layer runs Google Vision OCR then an LLM for structured extraction; integrations archive to Drive, record in Sheets, and upsert to HubSpot; the output sends a WhatsApp confirmation.">
+            <div class="tier"><div class="tl">Trigger</div><div class="tn"><span class="node trig">WhatsApp inbound image</span></div></div>
+            <div class="tier"><div class="tl">AI layer</div><div class="tn"><span class="node ai">Google Vision OCR</span><span class="node ai">LLM structured extraction</span></div></div>
+            <div class="tier"><div class="tl">Integrations</div><div class="tn"><span class="node int">Drive (archive)</span><span class="node store">Sheets (record)</span><span class="node int">HubSpot upsert</span></div></div>
+            <div class="tier"><div class="tl">Output</div><div class="tn"><span class="node int">WhatsApp confirmation</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">03</span>Workflow</h2>
+        <div class="diagram">
+          <div class="flow" role="img" aria-label="A WhatsApp trigger validates the media, runs Vision OCR, passes text to an LLM that returns JSON, archives the image to Drive, records it in Sheets, upserts the deduplicated contact to HubSpot, and confirms back over WhatsApp.">
+            <span class="node trig">WhatsApp trigger</span><span class="arrow">→</span><span class="node int">Validate media</span><span class="arrow">→</span><span class="node ai">Vision OCR</span><span class="arrow">→</span><span class="node ai">LLM → JSON</span><span class="arrow">→</span><span class="node int">Drive archive</span><span class="arrow">→</span><span class="node store">Sheets</span><span class="arrow">→</span><span class="node int">HubSpot upsert (dedup)</span><span class="arrow">→</span><span class="node int">WhatsApp confirm</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">04</span>Integrations &amp; AI components</h2>
+        <ul>
+          <li><b>APIs:</b> WhatsApp Business Cloud API, Google Vision OCR, Google Drive, Google Sheets, HubSpot.</li>
+          <li><b>AI:</b> Google Vision OCR + LLM (AWS Bedrock) structured extraction to strict JSON (name, role, company, email, phone, website).</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">05</span>Technical challenges</h2>
+        <ul>
+          <li>OCR output is noisy — an <b>LLM after OCR</b> normalizes raw text into strict, CRM-safe JSON.</li>
+          <li>Deduplication on email/phone so re-sent cards update rather than duplicate.</li>
+          <li>Explicit handling of every failure mode (missing image, OCR failure, malformed LLM output, CRM API error).</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">06</span>Reliability engineering</h2>
+        <div class="facts" style="margin:6px 0 0">
+          <div class="f"><div class="fk">Deployment</div><div class="fv">Self-hosted n8n · WhatsApp webhook (event-driven)</div></div>
+          <div class="f"><div class="fk">Monitoring</div><div class="fv">Sheets record of every card · per-stage error logging</div></div>
+          <div class="f"><div class="fk">Error handling &amp; retries</div><div class="fv">Media validation · graceful stop on no-image · branch on OCR/parse failure · CRM retry</div></div>
+          <div class="f"><div class="fk">Validation &amp; scale</div><div class="fv">Dedup on email/phone · stateless per-message · concurrent senders</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">07</span>Impact</h2>
+        <div class="itiles">
+          <div class="it"><div class="n">&lt;1<em> min</em></div><div class="l">Card photo → CRM contact</div></div>
+          <div class="it alt"><div class="n">14</div><div class="l">Steps fully automated</div></div>
+          <div class="it"><div class="n">0</div><div class="l">Manual re-typing</div></div>
+          <div class="it alt"><div class="n">100<em>%</em></div><div class="l">Dedup on email/phone</div></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2><span class="n">08</span>Lessons learned</h2>
+        <p>Chaining an LLM behind OCR is what turned an unreliable text dump into structured data safe to write to a CRM. Validation gates before every external write prevent silent corruption.</p>
+      </div>
+
+      <div class="nextcase">
+        <div><div class="l">Next case</div><a href="hubspot-segmentation.html">AI Contact Segmentation →</a></div>
+        <a class="btn ghost" href="../index.html#work">All work</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap"><div>© <span id="yr">2026</span> · Mustafa Hamdy</div><div>AI Automation Engineer</div></div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>
