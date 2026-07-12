@@ -6,7 +6,7 @@ Live site → **https://mostafa3001hamdy.github.io/Mustafa-Portfolio/**
 A single-file, no-build portfolio showcasing production AI-automation systems I've designed and shipped — n8n workflows integrating LLMs (AWS Bedrock, Azure OpenAI GPT-4o), OCR, REST APIs, and 20+ SaaS platforms.
 
 ## Highlights
-- **40+** production workflows built
+- **100+** production workflows built
 - **400+** LinkedIn profiles orchestrated (AI engagement engine, 5 runs/day)
 - **25,000+** contacts AI-segmented in HubSpot
 - **4,740** LinkedIn profiles enriched (batched from 4,740 → 10 API executions)
